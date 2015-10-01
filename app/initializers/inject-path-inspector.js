@@ -1,1 +1,1 @@
-export { default } from 'path-inspector/initializers/inject-path-inspector';
+export { default, initialize } from 'path-inspector/initializers/inject-path-inspector';
