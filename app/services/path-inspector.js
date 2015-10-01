@@ -1,1 +1,1 @@
-export { default } from 'path-inspector/services/path-inspector';
+export { default } from 'ember-cli-path-inspector/services/path-inspector';

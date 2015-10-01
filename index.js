@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'path-inspector'
+  name: 'ember-cli-path-inspector'
 };

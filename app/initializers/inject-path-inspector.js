@@ -1,1 +1,1 @@
-export { default, initialize } from 'path-inspector/initializers/inject-path-inspector';
+export { default, initialize } from 'ember-cli-path-inspector/initializers/inject-path-inspector';
