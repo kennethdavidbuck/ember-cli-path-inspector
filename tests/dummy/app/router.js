@@ -6,4 +6,9 @@ var Router = Ember.Router.extend({
 });
 
 export default Router.map(function() {
+	this.route('inspect', function () {
+		this.route('one');
+		this.route('two');
+		this.route('three');
+	});
 });

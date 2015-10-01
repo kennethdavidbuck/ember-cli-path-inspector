@@ -1,4 +1,13 @@
+import Ember from 'ember';
 
-import BaseRoute from './base';
+export default Ember.Route.extend({
+	setupController(controller) {
+		const pathInspector = this.get('pathInspectorService');
+		const routeName = this.get('routeName');
+		const node = pathInspector.nodeForRouteName(routeName);
 
-export default BaseRoute.extend({});
+		controller.setProperties({
+			childNodes: node.children
+		});
+	},
+});
