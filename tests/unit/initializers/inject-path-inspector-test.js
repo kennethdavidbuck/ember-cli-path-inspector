@@ -5,8 +5,8 @@ import { module, test } from 'qunit';
 var container, application;
 
 module('InjectPathInspectorInitializer', {
-  beforeEach: function() {
-    Ember.run(function() {
+  beforeEach: function () {
+    Ember.run(function () {
       application = Ember.Application.create();
       container = application.__container__;
       application.deferReadiness();
@@ -15,7 +15,7 @@ module('InjectPathInspectorInitializer', {
 });
 
 // Replace this with your real tests.
-test('it works', function(assert) {
+test('it works', function (assert) {
   initialize(container, application);
 
   // you would normally confirm the results of the initializer here
