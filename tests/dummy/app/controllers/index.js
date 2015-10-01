@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-	routeName: 'index',
+	routeName: 'application',
 
 	node: Ember.computed('routeName', function () {
 		return this.get('pathInspectorService').nodeForRouteName(this.get('routeName'));
