@@ -36,7 +36,7 @@ export default Ember.Service.extend({
 		Ember.assert('Should have been given an object of route names', Ember.typeOf(routes) === 'object');
 		Ember.assert('At a minimum the names object should contain the application route name', routes.hasOwnProperty('application'));
 
-		return Ember.keys(routes);
+		return Ember.A(Ember.keys(routes));
 	}),
 
 	/**
@@ -74,9 +74,9 @@ export default Ember.Service.extend({
 	leafRouteNames: Ember.computed(function () {
 		const leafRouteMap = this.get('leafRouteMap');
 
-		return Ember.keys(leafRouteMap).filter((key) => {
+		return Ember.A(Ember.A(Ember.keys(leafRouteMap)).filter((key) => {
 			return leafRouteMap[key];
-		});
+		}));
 	}),
 
 	/**
@@ -119,7 +119,7 @@ export default Ember.Service.extend({
 	 * @return {[PlainObject]}
 	 */
 	siblingPathsForRouteName(routeName) {
-		return this.siblingNodesForRouteName(routeName).mapBy('routeName');
+		return Ember.A(this.siblingNodesForRouteName(routeName).mapBy('routeName'));
 	},
 
 	/**
@@ -132,12 +132,12 @@ export default Ember.Service.extend({
 	siblingNodesForRouteName(routeName) {
 		// Application is the root, so it is not possible for it to have a parent or any siblings.
 		if (routeName === 'application') {
-			return [];
+			return Ember.A([]);
 		}
 
-		return this.nodeForRouteName(routeName).parent.children.filter((siblingNode) => {
+		return Ember.A(Ember.A(this.nodeForRouteName(routeName).parent.children).filter((siblingNode) => {
 			return siblingNode.routeName !== routeName;
-		});
+		}));
 	},
 
 	/**
@@ -175,7 +175,7 @@ export default Ember.Service.extend({
 		const routeMapTree = {
 			nodeName: 'application',
 			routeName: 'application',
-			children: []
+			children: Ember.A([])
 		};
 
 		this.get('routes').without('application').forEach((routeName) => {
@@ -188,7 +188,7 @@ export default Ember.Service.extend({
 					nextNode = {
 						parent: currentNode,
 						nodeName: nodeName,
-						children: []
+						children: Ember.A([])
 					};
 
 					currentNode.children.pushObject(nextNode);

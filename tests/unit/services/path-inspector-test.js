@@ -42,7 +42,7 @@ test('Correctly identifies leaf routeName', function (assert) {
 });
 
 test('Correctly lists leaf routes', function (assert) {
-	const expectedLeafRoutes = ['foo.bar.baz', 'bar.baz.foo', 'qux'];
+	const expectedLeafRoutes = Ember.A(['foo.bar.baz', 'bar.baz.foo', 'qux']);
 	const actualLeafRoutes = this.subject().get('leafRouteNames');
 
 	assert.expect(expectedLeafRoutes.length + 1);
@@ -76,7 +76,7 @@ test('Correctly identifies sibling route paths', function (assert) {
 
 	const service = this.subject();
 
-	const expectedFooSiblingPaths = ['bar', 'qux'];
+	const expectedFooSiblingPaths = Ember.A(['bar', 'qux']);
 	const actualFooSiblingPaths = service.siblingPathsForRouteName('foo');
 
 	assert.equal(expectedFooSiblingPaths.length, actualFooSiblingPaths.length, 'Should be of the same length');
@@ -84,7 +84,7 @@ test('Correctly identifies sibling route paths', function (assert) {
 		assert.ok(expectedFooSiblingPaths.contains(path), 'foo sibling paths should contain sibling path: ' . path);
 	});
 
-	const expectedBarSiblingPaths = ['foo', 'qux'];
+	const expectedBarSiblingPaths = Ember.A(['foo', 'qux']);
 	const actualBarSiblingPaths = service.siblingPathsForRouteName('bar');
 
 	assert.equal(expectedBarSiblingPaths.length, actualBarSiblingPaths.length, 'Should be of the same length');
