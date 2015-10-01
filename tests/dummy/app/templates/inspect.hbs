@@ -1,15 +1,15 @@
 <section>
-	<div>parent route name: {{node.parent.routeName}}</div>
-	<div>parent node name: {{node.parent.nodeName}}</div>
-	<div>route name: {{routeName}}</div>
 	<div>node name: {{nodeName}}</div>
+	<div>route name: {{routeName}}</div>
+	<div>parent node name: {{node.parent.nodeName}}</div>
+	<div>parent route name: {{node.parent.routeName}}</div>
 	<div>child count: {{node.children.length}}</div>
 	<div>sibling count: {{siblingNodes.length}}</div>
 	<div>
 		sibling route names:
 		{{#each siblingNodes as |siblingNode|}}
 			{{#link-to siblingNode.routeName tagName="button"}}
-				{{siblingNode.nodeName}}
+				{{siblingNode.routeName}}
 			{{/link-to}} &nbsp;
 		{{/each}}
 	</div>
