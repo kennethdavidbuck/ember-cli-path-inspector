@@ -1,0 +1,10 @@
+.ember-application, section {
+	font-family: Helvetica;
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid black;
+}
+
+section {
+	background: #AA3939;
+}
