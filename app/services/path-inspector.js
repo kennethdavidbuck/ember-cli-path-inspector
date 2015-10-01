@@ -158,9 +158,9 @@ export default Ember.Service.extend({
 			return routeMapTree;
 		}
 
-		return routeName.split('.').reduce((prev, nodeName) => {
+		return Ember.A(Ember.A(routeName.split('.')).reduce((prev, nodeName) => {
 			return prev.children.findBy('nodeName', nodeName);
-		}, routeMapTree);
+		}, routeMapTree));
 	},
 
 	/**
