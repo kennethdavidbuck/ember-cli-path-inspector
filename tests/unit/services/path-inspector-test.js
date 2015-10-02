@@ -5,7 +5,7 @@
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
-moduleFor('service:path-inspector', 'Unit - Service - Path Inspector', {
+moduleFor('service:path-inspector', 'Unit | Service | path inspector', {
   setup: function () {
     this.subject().set('router.router.recognizer.names', {
       'application': {},
