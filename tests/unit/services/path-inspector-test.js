@@ -47,7 +47,7 @@ test('Correctly lists leaf routes', function (assert) {
   assert.equal(actualLeafRoutes.length, expectedLeafRoutes.length, 'expected and actual leaf routes should be the same length');
 
   expectedLeafRoutes.forEach(function (routeName) {
-    assert.ok(actualLeafRoutes.indexOf(routeName) !== -1, `${routeName} should be a part of the result set.`);
+    assert.ok(actualLeafRoutes.indexOf(routeName) !== -1, `${routeName} should be a part of the result set`);
   });
 });
 
@@ -90,7 +90,7 @@ test('Correctly identifies sibling route paths', function (assert) {
   });
 
   const actualFooBarBazSiblingPaths = service.siblingPathsForRouteName('foo.bar.baz');
-  assert.equal(actualFooBarBazSiblingPaths.length, 0, 'foo.bar.baz sibling paths should should have a length of zero.');
+  assert.equal(actualFooBarBazSiblingPaths.length, 0, 'foo.bar.baz sibling paths should should have a length of zero');
 
   const actualBarBazFooSiblingPaths = service.siblingPathsForRouteName('bar.baz.foo');
   assert.equal(actualBarBazFooSiblingPaths.length, 0, 'bar.baz.foo sibling paths should have a length of zero');
@@ -109,14 +109,14 @@ test('Child nodes are of correct length', function (assert) {
   const barNode = service.nodeForRouteName('bar');
   assert.equal(barNode.children.length, 1, 'bar should have 1 child');
 
-  const quxNode = service.nodeForRouteName('qux', 'qux should have no children.');
+  const quxNode = service.nodeForRouteName('qux', 'qux should have no children');
   assert.equal(quxNode.children.length, 0);
 
   const barBazNode = service.nodeForRouteName('bar.baz');
-  assert.equal(barBazNode.children.length, 1, 'bar.baz should have one child.');
+  assert.equal(barBazNode.children.length, 1, 'bar.baz should have one child');
 
   const barBazFooNode = service.nodeForRouteName('bar.baz.foo');
-  assert.equal(barBazFooNode.children.length, 0, 'bar.baz.foo should have no children.');
+  assert.equal(barBazFooNode.children.length, 0, 'bar.baz.foo should have no children');
 });
 
 test('Queried route name is not listed in sibling paths', function (assert) {
@@ -156,5 +156,5 @@ test('Application siblings paths are of length zero', function (assert) {
   assert.expect(1);
   const service = this.subject();
 
-  assert.equal(service.siblingPathsForRouteName('application').length, 0, 'application should have no sibling paths.');
+  assert.equal(service.siblingPathsForRouteName('application').length, 0, 'application should have no sibling paths');
 });
