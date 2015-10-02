@@ -132,7 +132,7 @@ test('Queried route name is not listed in sibling paths', function (assert) {
 
 test('Correctly identifies sibling nodes for foo', function (assert) {
   const service = this.subject();
-  const expectedPaths = ['bar', 'qux'];
+  const expectedPaths = Ember.A(['bar', 'qux']);
   assert.expect(expectedPaths.length);
 
   const result = service.siblingNodesForRouteName('foo');
@@ -144,7 +144,7 @@ test('Correctly identifies sibling nodes for foo', function (assert) {
 
 test('Correctly identifies sibling nodes for bar', function (assert) {
   const service = this.subject();
-  const expectedPaths = ['foo', 'qux'];
+  const expectedPaths = Ember.A(['foo', 'qux']);
 
   assert.expect(expectedPaths.length);
 
