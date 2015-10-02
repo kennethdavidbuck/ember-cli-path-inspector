@@ -19,7 +19,6 @@ export default Ember.Service.extend({
     return Ember.A(Object.keys(routes));
   }),
 
-
   isLeafRoute(candidateRoute) {
     return this.isLeafRouteName(candidateRoute.get('routeName'));
   },
