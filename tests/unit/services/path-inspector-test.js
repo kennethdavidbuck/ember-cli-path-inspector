@@ -1,6 +1,3 @@
-/**
- * Path Inspector Service Unit Test
- */
 
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
