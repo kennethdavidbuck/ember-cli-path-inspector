@@ -112,7 +112,7 @@ test('Child nodes are of correct length', function (assert) {
   const barNode = service.nodeForRouteName('bar');
   assert.equal(barNode.children.length, 1, 'bar should have 1 child');
 
-  const quxNode = service.nodeForRouteName('qux', 'quz should have no children.');
+  const quxNode = service.nodeForRouteName('qux', 'qux should have no children.');
   assert.equal(quxNode.children.length, 0);
 
   const barBazNode = service.nodeForRouteName('bar.baz');
