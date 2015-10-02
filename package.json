@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-path-inspector",
   "version": "0.1.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Route path introspection for your application.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,7 +11,10 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kennethdavidbuck/ember-cli-route-inspector"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
