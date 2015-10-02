@@ -1,55 +1,59 @@
 <section>
-	<div>
-		path: {{node.routeName}}
-	</div>
-	<div>
-		path segment: {{node.nodeName}}
-	</div>
-	<div>
-		parent path: {{node.parent.routeName}}
-	</div>
-	<div>
-		child count: {{node.children.length}}
-	</div>
-	<div>
-		child paths:
-		{{#each node.children as |child|}}
-			{{#link-to child.routeName tagName="button"}}{{child.routeName}}{{/link-to}}&nbsp;
-		{{else}}
-			no child paths
-		{{/each}}
-	</div>
-	<div>
-		sibling count: {{siblingPaths.length}}
-	</div>
-	<div>
-		sibling paths:
-		{{#each siblingPaths as |siblingPath|}}
-			{{#link-to siblingPath tagName="button"}}{{siblingPath}}{{/link-to}}&nbsp;
-		{{else}}
-			no sibling paths
-		{{/each}}
-	</div>
+    <div>
+        path: {{node.routeName}}
+    </div>
+    <div>
+        path segment: {{node.nodeName}}
+    </div>
+    <div>
+        parent path: {{node.parent.routeName}}
+    </div>
+    <div>
+        child count: {{node.children.length}}
+    </div>
+    <div>
+        child paths:
+      {{#each node.children as |child|}}
+        {{#link-to child.routeName tagName="button"}}{{child.routeName}}{{/link-to}}&nbsp;
+      {{else}}
+          no child paths
+      {{/each}}
+    </div>
+    <div>
+        sibling count: {{siblingPaths.length}}
+    </div>
+    <div>
+        sibling paths:
+      {{#each siblingPaths as |siblingPath|}}
+        {{#link-to siblingPath tagName="button"}}{{siblingPath}}{{/link-to}}&nbsp;
+      {{else}}
+          no sibling paths
+      {{/each}}
+    </div>
 </section>
 <section>
-	<div>route count: {{pathInspectorService.leafRouteNames.length}}</div>
-	<div>
-		routes [click to inspect]:
-		<ul>
-			{{#each pathInspectorService.routes as |routeName|}}
-				<li><button {{action "inspect" routeName}}>{{routeName}}</button></li>
-			{{/each}}
-		</ul>
-	</div>
+    <div>route count: {{pathInspectorService.routes.length}}</div>
+    <div>
+        routes [click to inspect]:
+        <ul>
+          {{#each pathInspectorService.routes as |routeName|}}
+              <li>
+                  <button {{action "inspect" routeName}}>{{routeName}}</button>
+              </li>
+          {{/each}}
+        </ul>
+    </div>
 </section>
 <section>
-	<div>leaf route count: {{pathInspectorService.leafRouteNames.length}}</div>
-	<div>
-		leaf routes:
-		<ul>
-			{{#each pathInspectorService.leafRouteNames as |leafRouteName|}}
-				<li><button {{action "inspect" leafRouteName}}>{{leafRouteName}}</button></li>
-			{{/each}}
-		</ul>
-	</div>
+    <div>leaf route count: {{pathInspectorService.leafRouteNames.length}}</div>
+    <div>
+        leaf routes:
+        <ul>
+          {{#each pathInspectorService.leafRouteNames as |leafRouteName|}}
+              <li>
+                  <button {{action "inspect" leafRouteName}}>{{leafRouteName}}</button>
+              </li>
+          {{/each}}
+        </ul>
+    </div>
 </section>
