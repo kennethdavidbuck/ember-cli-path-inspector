@@ -23,7 +23,7 @@ test('Application correctly identified as a non-leaf route', function (assert) {
   assert.ok(!this.subject().isLeafRouteName('application'), 'application should not be recognized as a leaf route name');
 });
 
-test('Correct identifies leaf route', function (assert) {
+test('Correctly identifies leaf route', function (assert) {
   assert.expect(1);
   const route = Ember.Object.create({
     routeName: 'foo.bar.baz'
