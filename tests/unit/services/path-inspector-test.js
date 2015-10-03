@@ -1,4 +1,3 @@
-
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
