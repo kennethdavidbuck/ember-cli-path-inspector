@@ -6,8 +6,8 @@ Path Inspector acquires a list of your applications paths at run time and constr
 - Is a given route a leaf route?
 - What are all of the application leaf routeNames?
 - What are the routeNames of all siblings for a given routeName?
-- What is the parent routeName for a given routeName
-- What are the immediate child routeNames for a given routName
+- What is the parent routeName for a given routeName?
+- What are the immediate child routeNames for a given routName?
 
 ## Installation
 ```
@@ -16,9 +16,17 @@ ember install ember-cli-storagekit
 
 ## Basic Usage - Some Contrived Examples
 
-### Determine Leaf Routes
+
+### The Node Tree
+Each node in the parallel tree has 4 properties:
+
+- parent: The current nodes parent node
+- nodeName: Given a path to a leaf node, this is the segment representing the current node.
+- routeName: What you would expect, the path leading to the the route.
+- children: A list of immediate child route names for the current node.
+
+### Determining Leaf Routes
 ```javascript
-  // A route
   // ...snip...
   setupController(controller, model) {
    this._super(controller, model);
@@ -57,11 +65,17 @@ ember install ember-cli-storagekit
   // ...snip...
 ```
 
-## Installation
-
-* `git clone` this repository
-* `npm install`
-* `bower install`
+### Get Sibling Route Names
+```javascript
+  // ...snip...
+  setupController(controller, model) {
+    this._super(controller, model);
+    this.get('pathInspectorService').siblingPathsForRouteName(this.get('routeName')).forEach((routeName) => {
+      // do other stuff
+    });
+  }
+  // ...snip...
+```
 
 ## Running
 
