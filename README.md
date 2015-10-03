@@ -1,17 +1,22 @@
 # ember-cli-path-inspector
 
-RouteInspector acquires a list of your applications paths at run time and constructs a parallel tree of nodes for querying. This allows you to ask questions about your applications routes without having to probe them directly. You can now use this service throughout your application to answer different questions such as:
+Path Inspector acquires a list of your applications paths at run time and constructs a parallel tree of nodes for querying. This allows you to ask questions about your applications routes without having to probe them directly. You can use this service throughout your application to answer different questions such as:
 
 - Is a given routeName for a leaf route?
 - Is a given route a leaf route?
 - What are all of the application leaf routeNames?
 - What are the routeNames of all siblings for a given routeName?
 - What is the parent routeName for a given routeName
-- What are the children routeNames for a given routName
+- What are the immediate child routeNames for a given routName
+
+## Installation
+```
+ember install ember-cli-storagekit
+```
 
 ## Basic Usage - Some Contrived Examples
 
-### Inspect for Leaf Routes
+### Determine Leaf Routes
 ```javascript
   // A route
   // ...snip...
