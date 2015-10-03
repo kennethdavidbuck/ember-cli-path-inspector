@@ -11,7 +11,7 @@ Path Inspector acquires a list of your applications paths at run time and constr
 
 ## Installation
 ```
-ember install ember-cli-storagekit
+ember install ember-cli-path-inspector
 ```
 
 ## Basic Usage - Some Contrived Examples
@@ -34,6 +34,7 @@ Each node in the parallel tree has 4 properties:
       // do stuff
     }
     
+    // or...
     if(this.get('pathInspectorService').isLeafRoute(this)) {
       // do stuff
     }
