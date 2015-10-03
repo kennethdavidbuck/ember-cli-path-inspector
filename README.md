@@ -9,6 +9,8 @@ Path Inspector acquires a list of your applications paths at run time and constr
 - What is the parent routeName for a given routeName?
 - What are the immediate child routeNames for a given routName?
 
+Is it production ready? The current implementation is being used in production apps, however the api is still subject to change until 1.0.0
+
 ## Installation
 ```
 ember install ember-cli-path-inspector
