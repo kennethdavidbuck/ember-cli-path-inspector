@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-path-inspector",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Route path introspection for your application.",
   "directories": {
     "doc": "doc",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kennethdavidbuck/ember-cli-route-inspector"
+    "url": "https://github.com/kennethdavidbuck/ember-cli-path-inspector"
   },
   "engines": {
     "node": ">= 0.10.0"
