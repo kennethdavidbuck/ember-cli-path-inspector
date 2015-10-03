@@ -1,4 +1,4 @@
-# ember-cli-path-inspector
+# ember-cli-path-inspector [![Build Status](https://travis-ci.org/kennethdavidbuck/ember-cli-path-inspector.svg?branch=develop)](https://travis-ci.org/kennethdavidbuck/ember-cli-path-inspector)
 
 Path Inspector acquires a list of your applications paths at run time and constructs a parallel tree of nodes for querying. This allows you to ask questions about your applications routes without having to probe them directly. You can use this service throughout your application to answer different questions such as:
 
