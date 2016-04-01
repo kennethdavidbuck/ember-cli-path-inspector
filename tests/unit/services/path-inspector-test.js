@@ -2,7 +2,7 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('service:path-inspector', 'Unit | Service | path inspector', {
-  setup: function () {
+  beforeEach() {
     this.subject().set('router.router.recognizer.names', {
       'application': {},
       'foo': {},
@@ -13,8 +13,6 @@ moduleFor('service:path-inspector', 'Unit | Service | path inspector', {
       'bar': {},
       'qux': {}
     });
-  },
-  teardown: function () {
   }
 });
 
@@ -77,7 +75,7 @@ test('Correctly identifies sibling route paths', function (assert) {
 
   assert.equal(expectedFooSiblingPaths.length, actualFooSiblingPaths.length, 'Should be of the same length');
   actualFooSiblingPaths.forEach((path) => {
-    assert.ok(expectedFooSiblingPaths.contains(path), `foo sibling paths should contain sibling path: ${path}`);
+    assert.ok(expectedFooSiblingPaths.indexOf(path) > -1, `foo sibling paths should contain sibling path: ${path}`);
   });
 
   const expectedBarSiblingPaths = Ember.A(['foo', 'qux']);
@@ -85,7 +83,7 @@ test('Correctly identifies sibling route paths', function (assert) {
 
   assert.equal(expectedBarSiblingPaths.length, actualBarSiblingPaths.length, 'Should be of the same length');
   expectedBarSiblingPaths.forEach((path) => {
-    assert.ok(actualBarSiblingPaths.contains(path), `bar sibling paths should contain sibling path: ${path}`);
+    assert.ok(actualBarSiblingPaths.indexOf(path) > -1, `bar sibling paths should contain sibling path: ${path}`);
   });
 
   const actualFooBarBazSiblingPaths = service.siblingPathsForRouteName('foo.bar.baz');
@@ -123,7 +121,7 @@ test('Queried route name is not listed in sibling paths', function (assert) {
   const service = this.subject();
   const result = service.siblingNodesForRouteName('bar');
 
-  assert.ok(!result.findBy('routeName', 'bar'), 'bar should not be in its sibling node set');
+  assert.ok(!result.find(node => node.routeName === 'bar'), 'bar should not be in its sibling node set');
 });
 
 test('Correctly identifies sibling nodes for foo', function (assert) {
@@ -134,7 +132,7 @@ test('Correctly identifies sibling nodes for foo', function (assert) {
   const result = service.siblingNodesForRouteName('foo');
 
   expectedPaths.forEach((path) => {
-    assert.ok(result.findBy('routeName', path), `foo siblings should contain node for path: ${path}`);
+    assert.ok(result.find(node => node.routeName === path), `foo siblings should contain node for path: ${path}`);
   });
 });
 
@@ -147,7 +145,7 @@ test('Correctly identifies sibling nodes for bar', function (assert) {
   const result = service.siblingNodesForRouteName('bar');
 
   expectedPaths.forEach((path) => {
-    assert.ok(result.findBy('routeName', path), `Should contain node for path: ${path}`);
+    assert.ok(result.find( node => node.routeName === path), `Should contain node for path: ${path}`);
   });
 });
 

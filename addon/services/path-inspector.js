@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
+const {
+  assert,
+  computed,
+  typeOf
+  } = Ember;
+
 export default Ember.Service.extend({
 
   router: {
@@ -10,118 +16,116 @@ export default Ember.Service.extend({
     }
   },
 
-  routes: Ember.computed('router', function () {
+  routes: computed('router.router.recognizer.names', function () {
     const routes = this.get('router.router.recognizer.names');
 
-    Ember.assert('Should have been given an object of route names', Ember.typeOf(routes) === 'object');
-    Ember.assert('At a minimum the names object should contain the application route name', routes.hasOwnProperty('application'));
+    assert('Should have been given an object of route names', typeOf(routes) === 'object');
+    assert('At a minimum the names object should contain the application route name', routes.hasOwnProperty('application'));
 
-    return Ember.A(Object.keys(routes));
+    return Object.keys(routes);
   }),
 
-  isLeafRoute(candidateRoute) {
-    return this.isLeafRouteName(candidateRoute.get('routeName'));
+  isLeafRoute({routeName}) {
+    return this.isLeafRouteName(routeName);
   },
 
   isLeafRouteName(candidateRouteName) {
     const leafRouteMap = this.get('leafRouteMap');
 
-    Ember.assert('Route Inspector: You queried a route that is not part of this application', leafRouteMap.hasOwnProperty(candidateRouteName));
+    assert('Route Inspector: You queried a route that is not part of this application', leafRouteMap.hasOwnProperty(candidateRouteName));
 
     return leafRouteMap[candidateRouteName];
   },
 
-  leafRouteNames: Ember.computed(function () {
+  leafRouteNames: computed(function () {
     const leafRouteMap = this.get('leafRouteMap');
 
-    return Ember.A(Ember.A(Object.keys(leafRouteMap)).filter((key) => {
-      return leafRouteMap[key];
-    }));
+    return Object.keys(leafRouteMap).filter(key => leafRouteMap[key]);
   }),
 
-  leafRouteMap: Ember.computed(function () {
+  leafRouteMap: computed(function () {
     // We don't want the application route because, by convention, Ember does not prepend it to any routeNames.
     // This means the algorithm will determine that it is a leaf route when it is not.
-    const routes = this.get('routes').without('application');
+    const routes = this.get('routes').filter(routeName => routeName !== 'application');
 
-    const leafRouteMap = {
-      application: false
-    };
+    const leafRouteMap = routes.reduce((leafRouteMap, routeName) => {
+      leafRouteMap[routeName] = true;
 
-    routes.forEach((route) => {
-      leafRouteMap[route] = true;
-    });
+      return leafRouteMap;
+    }, {application: false});
 
-    routes.forEach((route) => {
-      const segments = route.split('.');
+    return routes.reduce((leafRouteMap, routeName) => {
+      const segments = routeName.split('.');
 
       // Set all second to last nodes for each route path to false.
       if (segments.length > 1) {
         leafRouteMap[segments.slice(0, -1).join('.')] = false;
       }
-    });
 
-    return leafRouteMap;
+      return leafRouteMap;
+    }, leafRouteMap);
   }),
 
   siblingPathsForRouteName(routeName) {
-    return Ember.A(this.siblingNodesForRouteName(routeName).mapBy('routeName'));
+    return this.siblingNodesForRouteName(routeName).map(node => node.routeName);
   },
 
   siblingNodesForRouteName(routeName) {
     // Application is the root, so it is not possible for it to have a parent or any siblings.
     if (routeName === 'application') {
-      return Ember.A([]);
+      return [];
     }
 
-    return Ember.A(Ember.A(this.nodeForRouteName(routeName).parent.children).filter((siblingNode) => {
-      return siblingNode.routeName !== routeName;
-    }));
+    const siblings = this.nodeForRouteName(routeName).parent.children;
+
+    return siblings.filter(siblingNode => siblingNode.routeName !== routeName);
   },
 
   nodeForRouteName(routeName) {
-    Ember.assert('Route Inspector: You queried a node for a route that does not exist!', this.get('leafRouteMap').hasOwnProperty(routeName));
-
-    const routeMapTree = this.get('routeMapTree');
+    assert('Route Inspector: You queried a node for a route that does not exist!', this.get('leafRouteMap').hasOwnProperty(routeName));
 
     // Application is the root so we can simply return the tree.
     if (routeName === 'application') {
-      return routeMapTree;
+      return this.get('routeMapTree');
     }
 
-    return Ember.A(Ember.A(routeName.split('.')).reduce((prev, nodeName) => {
-      return prev.children.findBy('nodeName', nodeName);
-    }, routeMapTree));
+    return routeName
+      .split('.')
+      .reduce((parentNode, nodeName) => {
+        return parentNode.children.find(childNode => childNode.nodeName === nodeName);
+      }, this.get('routeMapTree'));
   },
 
-  routeMapTree: Ember.computed(function () {
+  routeMapTree: computed(function () {
     const routeMapTree = {
       nodeName: 'application',
       routeName: 'application',
-      children: Ember.A([])
+      children: []
     };
 
-    this.get('routes').without('application').forEach((routeName) => {
-      let currentNode = routeMapTree;
+    this.get('routes')
+      .filter(route => route !== 'application')
+      .forEach(routeName => {
+        let currentNode = routeMapTree;
 
-      routeName.split('.').forEach((nodeName) => {
-        let nextNode = currentNode.children.findBy('nodeName', nodeName);
+        routeName.split('.').forEach(nodeName => {
+          let nextNode = currentNode.children.find(node => node.nodeName === nodeName);
 
-        if (!nextNode) {
-          nextNode = {
-            parent: currentNode,
-            nodeName: nodeName,
-            children: Ember.A([])
-          };
+          if (!nextNode) {
+            nextNode = {
+              parent: currentNode,
+              nodeName: nodeName,
+              children: []
+            };
 
-          currentNode.children.pushObject(nextNode);
-        }
+            currentNode.children.push(nextNode);
+          }
 
-        currentNode = nextNode;
+          currentNode = nextNode;
+        });
+
+        currentNode.routeName = routeName;
       });
-
-      currentNode.routeName = routeName;
-    });
 
     return routeMapTree;
   })
