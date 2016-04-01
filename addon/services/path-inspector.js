@@ -6,6 +6,8 @@ const {
   typeOf
   } = Ember;
 
+const rootRouteName = 'application';
+
 export default Ember.Service.extend({
 
   router: {
@@ -20,7 +22,7 @@ export default Ember.Service.extend({
     const routes = this.get('router.router.recognizer.names');
 
     assert('Should have been given an object of route names', typeOf(routes) === 'object');
-    assert('At a minimum the names object should contain the application route name', routes.hasOwnProperty('application'));
+    assert('At a minimum the names object should contain the application route name', routes.hasOwnProperty(rootRouteName));
 
     return Object.keys(routes);
   }),
@@ -46,7 +48,7 @@ export default Ember.Service.extend({
   leafRouteMap: computed(function () {
     // We don't want the application route because, by convention, Ember does not prepend it to any routeNames.
     // This means the algorithm will determine that it is a leaf route when it is not.
-    const routes = this.get('routes').filter(routeName => routeName !== 'application');
+    const routes = this.get('routes').filter(routeName => routeName !== rootRouteName);
 
     const leafRouteMap = routes.reduce((leafRouteMap, routeName) => {
       leafRouteMap[routeName] = true;
@@ -72,7 +74,7 @@ export default Ember.Service.extend({
 
   siblingNodesForRouteName(routeName) {
     // Application is the root, so it is not possible for it to have a parent or any siblings.
-    if (routeName === 'application') {
+    if (routeName === rootRouteName) {
       return [];
     }
 
@@ -85,7 +87,7 @@ export default Ember.Service.extend({
     assert('Route Inspector: You queried a node for a route that does not exist!', this.get('leafRouteMap').hasOwnProperty(routeName));
 
     // Application is the root so we can simply return the tree.
-    if (routeName === 'application') {
+    if (routeName === rootRouteName) {
       return this.get('routeMapTree');
     }
 
@@ -98,13 +100,13 @@ export default Ember.Service.extend({
 
   routeMapTree: computed(function () {
     const routeMapTree = {
-      nodeName: 'application',
-      routeName: 'application',
+      nodeName: rootRouteName,
+      routeName: rootRouteName,
       children: []
     };
 
     this.get('routes')
-      .filter(route => route !== 'application')
+      .filter(route => route !== rootRouteName)
       .forEach(routeName => {
         let currentNode = routeMapTree;
 
