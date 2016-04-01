@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { initialize } from '../../../initializers/inject-path-inspector';
+import initialize from 'ember-cli-path-inspector/initializers/inject-path-inspector';
 import { module, test } from 'qunit';
 
 var registry, application;
