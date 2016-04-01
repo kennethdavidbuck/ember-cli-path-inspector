@@ -79,9 +79,7 @@ export default Ember.Service.extend({
       return [];
     }
 
-    const siblings = this.nodeForRouteName(routeName).parent.children;
-
-    return siblings.filter(siblingNode => siblingNode.routeName !== routeName);
+    return this.nodeForRouteName(routeName).parent.children.filter(siblingNode => siblingNode.routeName !== routeName);
   },
 
   nodeForRouteName(routeName) {
