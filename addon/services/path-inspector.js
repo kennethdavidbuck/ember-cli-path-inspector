@@ -54,7 +54,9 @@ export default Ember.Service.extend({
       leafRouteMap[routeName] = true;
 
       return leafRouteMap;
-    }, {application: false});
+    }, {});
+
+    leafRouteMap[rootRouteName] = false;
 
     return routes.reduce((leafRouteMap, routeName) => {
       const segments = routeName.split('.');
