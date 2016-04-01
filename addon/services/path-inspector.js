@@ -73,7 +73,6 @@ export default Ember.Service.extend({
   },
 
   siblingNodesForRouteName(routeName) {
-    // Application is the root, so it is not possible for it to have a parent or any siblings.
     if (routeName === rootRouteName) {
       return [];
     }
