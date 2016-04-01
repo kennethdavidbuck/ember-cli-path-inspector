@@ -43,7 +43,7 @@ test('Correctly lists leaf routes', function (assert) {
 
   assert.equal(actualLeafRoutes.length, expectedLeafRoutes.length, 'expected and actual leaf routes should be the same length');
 
-  expectedLeafRoutes.forEach(function (routeName) {
+  expectedLeafRoutes.forEach(routeName => {
     assert.ok(actualLeafRoutes.indexOf(routeName) !== -1, `${routeName} should be a part of the result set`);
   });
 });
@@ -74,7 +74,7 @@ test('Correctly identifies sibling route paths', function (assert) {
   const actualFooSiblingPaths = service.siblingPathsForRouteName('foo');
 
   assert.equal(expectedFooSiblingPaths.length, actualFooSiblingPaths.length, 'Should be of the same length');
-  actualFooSiblingPaths.forEach((path) => {
+  actualFooSiblingPaths.forEach(path => {
     assert.ok(expectedFooSiblingPaths.indexOf(path) > -1, `foo sibling paths should contain sibling path: ${path}`);
   });
 
@@ -82,7 +82,7 @@ test('Correctly identifies sibling route paths', function (assert) {
   const actualBarSiblingPaths = service.siblingPathsForRouteName('bar');
 
   assert.equal(expectedBarSiblingPaths.length, actualBarSiblingPaths.length, 'Should be of the same length');
-  expectedBarSiblingPaths.forEach((path) => {
+  expectedBarSiblingPaths.forEach(path => {
     assert.ok(actualBarSiblingPaths.indexOf(path) > -1, `bar sibling paths should contain sibling path: ${path}`);
   });
 
@@ -131,7 +131,7 @@ test('Correctly identifies sibling nodes for foo', function (assert) {
 
   const result = service.siblingNodesForRouteName('foo');
 
-  expectedPaths.forEach((path) => {
+  expectedPaths.forEach(path => {
     assert.ok(result.find(node => node.routeName === path), `foo siblings should contain node for path: ${path}`);
   });
 });
@@ -144,8 +144,8 @@ test('Correctly identifies sibling nodes for bar', function (assert) {
 
   const result = service.siblingNodesForRouteName('bar');
 
-  expectedPaths.forEach((path) => {
-    assert.ok(result.find( node => node.routeName === path), `Should contain node for path: ${path}`);
+  expectedPaths.forEach(path => {
+    assert.ok(result.find(node => node.routeName === path), `Should contain node for path: ${path}`);
   });
 });
 
