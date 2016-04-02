@@ -84,7 +84,6 @@ export default Ember.Service.extend({
   nodeForRouteName(routeName) {
     assert('Route Inspector: You queried a node for a route that does not exist!', this.get('leafRouteMap').hasOwnProperty(routeName));
 
-    // Application is the root so we can simply return the tree.
     if (routeName === rootRouteName) {
       return this.get('routeMapTree');
     }
