@@ -1,18 +1,31 @@
-<section>
-    <div>node name: {{nodeName}}</div>
-    <div>route name: {{routeName}}</div>
-    <div>parent node name: {{node.parent.nodeName}}</div>
-    <div>parent route name: {{node.parent.routeName}}</div>
-    <div>child count: {{node.children.length}}</div>
-    <div>sibling count: {{siblingNodes.length}}</div>
-    <div>
-        sibling route names:
-      {{#each siblingNodes as |siblingNode|}}
-        {{#link-to siblingNode.routeName tagName="button"}}
-          {{siblingNode.routeName}}
-        {{/link-to}} &nbsp;
-      {{/each}}
-    </div>
+<table class="table table-inverse table-striped table-bordered table-sm">
+	<caption>route name: {{routeName}}</caption>
+	<thead>
+	<tr>
+		<th>node name</th>
+		<th>parent node name</th>
+		<th>parent route name</th>
+		<th>child count</th>
+		<th>sibling count</th>
+		<th>sibling route names</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{nodeName}}</td>
+		<td>{{node.parent.nodeName}}</td>
+		<td>{{node.parent.routeName}}</td>
+		<td>{{node.children.length}}</td>
+		<td>{{siblingNodes.length}}</td>
+		<td>
+			<ul>
+        {{#each siblingNodes as |siblingNode|}}
+				  <li>{{#link-to siblingNode.routeName}}{{siblingNode.routeName}}{{/link-to}}</li>
+        {{/each}}
+			</ul>
+		</td>
+	</tr>
+	</tbody>
+</table>
 
-  {{outlet}}
-</section>
+{{outlet}}

@@ -1,0 +1,1 @@
+export { default } from 'ember-cli-path-inspector/components/route-info';
