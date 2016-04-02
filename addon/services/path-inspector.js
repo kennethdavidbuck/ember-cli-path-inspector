@@ -58,12 +58,10 @@ export default Ember.Service.extend({
 
     leafRouteMap[rootRouteName] = false;
 
+    // Set all second to last nodes for each route path to false.
     return routes.reduce((leafRouteMap, routeName) => {
-      const segments = routeName.split('.');
-
-      // Set all second to last nodes for each route path to false.
-      if (segments.length > 1) {
-        leafRouteMap[segments.slice(0, -1).join('.')] = false;
+      if (routeName.match(/(\.)+/)) {
+        leafRouteMap[routeName.replace(/\.([^.]+)$/, '')] = false;
       }
 
       return leafRouteMap;
