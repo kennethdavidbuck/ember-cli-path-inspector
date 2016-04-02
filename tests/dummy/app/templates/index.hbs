@@ -2,7 +2,7 @@
 	<thead>
 	<tr>
 		<th>Route Name</th>
-		<th>Path Segment</th>
+		<th>Node Name</th>
 		<th>Is Leaf</th>
 		<th>Parent Path</th>
 		<th>Child Count</th>
@@ -15,7 +15,7 @@
     {{#each routes as |data|}}
 		<tr>
 			<td>{{#link-to data.routeName}}{{data.routeName}}{{/link-to}}</td>
-			<td>{{data.pathSegment}}</td>
+			<td>{{data.nodeName}}</td>
 			<td>
               {{data.isLeaf}}
 			</td>
@@ -33,8 +33,8 @@
 			</td>
 			<td>
 				<ul>
-          {{#each data.siblingPaths as |path|}}
-					  <li>{{#link-to path}} {{path}}{{/link-to}}</li>
+          {{#each data.siblings as |sibling|}}
+					  <li>{{#link-to sibling.routeName}}{{sibling.routeName}}{{/link-to}}</li>
           {{/each}}
 				</ul>
 			</td>

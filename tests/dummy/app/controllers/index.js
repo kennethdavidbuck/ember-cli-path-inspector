@@ -11,18 +11,18 @@ export default Ember.Controller.extend({
       .filter(routeName => !routeName.match(errorOrLoading))
       .map(routeName => {
         const node = pathInspector.nodeForRouteName(routeName);
-        const siblingPaths = pathInspector.siblingPathsForRouteName(routeName).filter(routeName => !routeName.match(errorOrLoading));
+        const siblings = pathInspector.siblingNodesForRouteName(routeName).filter(node => !node.routeName.match(errorOrLoading));
         const isLeafRoute = pathInspector.isLeafRouteName(node.routeName);
         const children =  node.children.filter(childNode => !childNode.routeName.match(errorOrLoading));
 
         return {
           routeName: node.routeName,
-          pathSegment: node.nodeName,
+          nodeName: node.nodeName,
           parentPath: node.parent ? node.parent.routeName : 'n/a',
           childCount: children.length,
           children: children,
-          siblingCount: siblingPaths.length,
-          siblingPaths: siblingPaths.filter(routeName => !routeName.match(errorOrLoading)),
+          siblingCount: siblings.length,
+          siblings: siblings,
           isLeaf: isLeafRoute
         };
     });
