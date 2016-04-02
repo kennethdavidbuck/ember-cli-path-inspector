@@ -8,6 +8,9 @@ const {
 
 const rootRouteName = 'application';
 
+let oneOrMoreDots = /(\.)+/;
+let lastSegment = /\.([^.]+)$/;
+
 export default Ember.Service.extend({
 
   router: {
@@ -60,8 +63,8 @@ export default Ember.Service.extend({
 
     // Set all second to last nodes for each route path to false.
     return routes.reduce((leafRouteMap, routeName) => {
-      if (routeName.match(/(\.)+/)) {
-        leafRouteMap[routeName.replace(/\.([^.]+)$/, '')] = false;
+      if (routeName.match(oneOrMoreDots)) {
+        leafRouteMap[routeName.replace(lastSegment, '')] = false;
       }
 
       return leafRouteMap;
