@@ -4,7 +4,7 @@
 		<th>Route Name</th>
 		<th>Node Name</th>
 		<th>Is Leaf</th>
-		<th>Parent Path</th>
+		<th>Parent Route Name</th>
 		<th>Child Count</th>
 		<th>Sibling Count</th>
 		<th>Child Paths</th>
@@ -19,7 +19,15 @@
 			<td>
               {{data.isLeaf}}
 			</td>
-			<td>{{data.parentPath}}</td>
+			<td>
+          {{#if data.parentRouteName}}
+            {{#link-to data.parentRouteName}}
+              {{data.parentRouteName}}
+            {{/link-to}}
+          {{else}}
+              n/a
+          {{/if}}
+      </td>
 			<td>{{data.childCount}}</td>
 			<td>{{data.siblingCount}}</td>
 			<td>

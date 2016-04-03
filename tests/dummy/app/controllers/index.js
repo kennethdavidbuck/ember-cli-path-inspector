@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
         return {
           routeName: node.routeName,
           nodeName: node.nodeName,
-          parentPath: node.parent ? node.parent.routeName : 'n/a',
+          parentRouteName: node.parent ? node.parent.routeName : null,
           childCount: children.length,
           children: children,
           siblingCount: siblings.length,
