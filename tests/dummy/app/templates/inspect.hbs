@@ -1,8 +1,9 @@
-<table class="table table-inverse table-striped table-bordered table-sm">
+<table class="table table-inverse table-striped table-bordered">
 	<caption>route name: {{routeName}}</caption>
 	<thead>
 	<tr>
-    <td>depth</td>
+    <th>depth</th>
+    <th>is leafNode</th>
 		<th>node name</th>
 		<th>parent node name</th>
 		<th>parent route name</th>
@@ -14,17 +15,22 @@
 	<tbody>
 	<tr>
     <td>{{node.depth}}</td>
+    <td>{{node.isLeafNode}}</td>
 		<td>{{nodeName}}</td>
-		<td>{{node.parent.nodeName}}</td>
+		<td>{{if node.parent.nodeName node.parent.nodeName "n/a"}}</td>
 		<td>{{node.parent.routeName}}</td>
 		<td>{{node.children.length}}</td>
 		<td>{{siblingNodes.length}}</td>
 		<td>
-			<ul>
-        {{#each siblingNodes as |siblingNode|}}
-				  <li>{{#link-to siblingNode.routeName}}{{siblingNode.routeName}}{{/link-to}}</li>
-        {{/each}}
-			</ul>
+        {{#if siblingNodes.length}}
+	        <ul>
+              {{#each siblingNodes as |siblingNode|}}
+		          <li>{{#link-to siblingNode.routeName}}{{siblingNode.routeName}}{{/link-to}}</li>
+              {{/each}}
+	        </ul>
+        {{else}}
+          n/a
+        {{/if}}
 		</td>
 	</tr>
 	</tbody>

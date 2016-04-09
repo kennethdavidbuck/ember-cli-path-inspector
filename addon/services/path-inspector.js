@@ -100,7 +100,8 @@ export default Ember.Service.extend({
       nodeName: rootRouteName,
       routeName: rootRouteName,
       children: [],
-      depth: 0
+      depth: 0,
+      isLeafNode: false
     };
 
     this.get('routes')
