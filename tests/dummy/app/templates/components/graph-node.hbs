@@ -1,0 +1,7 @@
+{{#link-to node.routeName class="graph-node"}}
+  {{node.nodeName}}
+{{/link-to}}
+
+{{#each node.children as |childNode|}}
+  {{graph-node node=childNode}}
+{{/each}}

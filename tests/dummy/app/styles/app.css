@@ -1,10 +1,38 @@
-section {
-	font-family: Helvetica;
-	padding: 10px;
-	margin: 10px;
-	border: 1px solid black;
+.route-tree {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 25px 0;
+  text-align: center;
 }
 
-section {
-	background: #AA3939;
+.route-tree a {
+  text-decoration: none;
+}
+
+.graph-node-row {
+  float: left;
+  display: inline-block;
+}
+
+.route-tree:after, .graph-node-row:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.graph-node {
+  width: 50px;
+  height: 50px;
+  background: #EFEFEF;
+  display: block;
+  line-height: 45px;
+  margin: 5px 10px;
+}
+
+.graph-node.active {
+  background-color: #337ab7;
+  color: #FFF;
 }
