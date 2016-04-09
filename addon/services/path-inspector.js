@@ -108,8 +108,9 @@ export default Ember.Service.extend({
       .filter(route => route !== rootRouteName)
       .forEach(routeName => {
         let currentNode = routeMapTree;
+        let segments = routeName.split('.');
 
-        routeName.split('.').forEach(nodeName => {
+        segments.forEach((nodeName, index) => {
           let nextNode = Ember.A(currentNode.children).find(node => node.nodeName === nodeName);
 
           if (!nextNode) {
@@ -117,7 +118,8 @@ export default Ember.Service.extend({
               parent: currentNode,
               nodeName: nodeName,
               children: [],
-              depth: currentNode.depth + 1
+              depth: currentNode.depth + 1,
+              isLeafNode: index === segments.length - 1
             };
 
             currentNode.children.push(nextNode);
@@ -127,7 +129,6 @@ export default Ember.Service.extend({
         });
 
         currentNode.routeName = routeName;
-        currentNode.isLeafNode = this.isLeafRouteName(routeName);
       });
 
     return routeMapTree;
