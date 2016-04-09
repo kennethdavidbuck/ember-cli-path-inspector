@@ -11,14 +11,16 @@
 <div class="container">
   <h1>Route Tree</h1>
 
+	<h3>Route Name: {{currentPath}}</h3>
+
   {{#graph-tree tree=pathInspectorService.routeMapTree}}
     {{graph-node node=pathInspectorService.routeMapTree}}
   {{/graph-tree}}
 
-  <h2>Route Data: {{currentPath}}</h2>
+  <h3>Route Data: {{currentPath}}</h3>
 
 	<table class="table table-inverse table-striped table-bordered">
-		<caption>route name: {{routeName}}</caption>
+		<caption>route name: </caption>
 		<thead>
 		<tr>
 			<th>depth</th>
