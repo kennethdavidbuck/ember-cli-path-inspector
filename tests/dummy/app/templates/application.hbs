@@ -11,9 +11,9 @@
 <div class="container">
   <h1>Route Tree</h1>
 
-  <div class="route-tree">
+  {{#graph-tree tree=pathInspectorService.routeMapTree}}
     {{graph-node node=pathInspectorService.routeMapTree}}
-  </div>
+  {{/graph-tree}}
 
   <h2>Route Data</h2>
 

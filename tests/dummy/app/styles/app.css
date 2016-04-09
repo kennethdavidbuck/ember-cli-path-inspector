@@ -1,11 +1,11 @@
-.route-tree {
+.graph-tree {
   border: 1px solid #ddd;
   padding: 15px;
   margin: 25px 0;
   text-align: center;
 }
 
-.route-tree a {
+.graph-tree a {
   text-decoration: none;
 }
 
@@ -14,7 +14,7 @@
   display: inline-block;
 }
 
-.route-tree:after, .graph-node-row:after {
+.graph-tree:after, .graph-node-row:after {
   visibility: hidden;
   display: block;
   font-size: 0;
