@@ -2,6 +2,7 @@
 	<caption>route name: {{routeName}}</caption>
 	<thead>
 	<tr>
+    <td>depth</td>
 		<th>node name</th>
 		<th>parent node name</th>
 		<th>parent route name</th>
@@ -12,6 +13,7 @@
 	</thead>
 	<tbody>
 	<tr>
+    <td>{{node.depth}}</td>
 		<td>{{nodeName}}</td>
 		<td>{{node.parent.nodeName}}</td>
 		<td>{{node.parent.routeName}}</td>
