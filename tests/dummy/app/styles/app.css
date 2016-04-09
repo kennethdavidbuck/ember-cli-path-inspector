@@ -1,17 +1,26 @@
 .graph-tree {
-  border: 1px solid #ddd;
   padding: 15px;
   margin: 25px 0;
   text-align: center;
-  font-size: 8px;
+  font-size: 9px;
+}
+
+.graph-tree:after, .graph-node-row:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 }
 
 .graph-tree a {
   text-decoration: none;
+  margin-left: calc(50% - 30px);
 }
 
 .graph-node-row {
-  display: inline-block;
+  float: left;
 }
 
 .graph-node {
@@ -20,10 +29,15 @@
   background: #EFEFEF;
   display: block;
   line-height: 45px;
-  margin: 5px 10px;
+  margin: 5px 5px;
+}
+
+.graph-node-row.leaf-node .graph-node {
+  background-color: #AAA;
+  color: #FFF;
 }
 
 .graph-node.active {
-  background-color: #337ab7;
+  background-color: #337AB7!important;
   color: #FFF;
 }

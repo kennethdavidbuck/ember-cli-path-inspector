@@ -17,5 +17,37 @@
 
   <h2>Route Data</h2>
 
+	<table class="table table-inverse table-striped table-bordered table-sm">
+		<caption>route name: {{routeName}}</caption>
+		<thead>
+		<tr>
+			<td>depth</td>
+			<th>node name</th>
+			<th>parent node name</th>
+			<th>parent route name</th>
+			<th>child count</th>
+			<th>sibling count</th>
+			<th>sibling route names</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>{{node.depth}}</td>
+			<td>{{nodeName}}</td>
+			<td>{{node.parent.nodeName}}</td>
+			<td>{{node.parent.routeName}}</td>
+			<td>{{node.children.length}}</td>
+			<td>{{siblingNodes.length}}</td>
+			<td>
+				<ul>
+          {{#each siblingNodes as |siblingNode|}}
+					  <li>{{#link-to siblingNode.routeName}}{{siblingNode.routeName}}{{/link-to}}</li>
+          {{/each}}
+				</ul>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
   {{outlet}}
 </div>

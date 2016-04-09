@@ -126,6 +126,7 @@ export default Ember.Service.extend({
         });
 
         currentNode.routeName = routeName;
+        currentNode.isLeafNode = this.isLeafRouteName(routeName);
       });
 
     return routeMapTree;
