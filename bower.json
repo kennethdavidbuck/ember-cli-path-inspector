@@ -11,7 +11,8 @@
     "jquery": "1.11.3",
     "loader.js": "ember-cli/loader.js#3.6.1",
     "qunit": "~1.20.0",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "d3": "^3.5.16"
   },
   "resolutions": {
     "qunit-notifications": "~0.1.0"
