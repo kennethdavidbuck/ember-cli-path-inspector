@@ -99,7 +99,8 @@ export default Ember.Service.extend({
     const routeMapTree = {
       nodeName: rootRouteName,
       routeName: rootRouteName,
-      children: []
+      children: [],
+      depth: 0
     };
 
     this.get('routes')
@@ -114,7 +115,8 @@ export default Ember.Service.extend({
             nextNode = {
               parent: currentNode,
               nodeName: nodeName,
-              children: []
+              children: [],
+              depth: currentNode.depth + 1
             };
 
             currentNode.children.push(nextNode);

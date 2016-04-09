@@ -155,3 +155,19 @@ test('Application siblings paths are of length zero', function (assert) {
 
   assert.equal(service.siblingPathsForRouteName('application').length, 0, 'application should have no sibling paths');
 });
+
+test('tags nodes with correct depth', function (assert) {
+  assert.expect(6);
+
+  let routeTree = this.subject().get('routeMapTree');
+
+  assert.equal(routeTree.depth, 0, 'root should have depth zero');
+
+  routeTree.children.forEach(node => {
+    assert.equal(node.depth, 1, 'second level nodes should have depth 1');
+
+    node.children.forEach(node => {
+      assert.equal(node.depth, 2, 'third level nodes should have depth 2');
+    });
+  });
+});
