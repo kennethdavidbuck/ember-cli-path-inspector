@@ -11,51 +11,15 @@
 <div class="container">
   <h1>Route Tree</h1>
 
-	<h3>Route Name: {{currentPath}}</h3>
+	<h3>route name: {{link-to currentPath currentPath}}</h3>
 
   {{#graph-tree tree=pathInspectorService.routeMapTree}}
     {{graph-node node=pathInspectorService.routeMapTree}}
   {{/graph-tree}}
 
-  <h3>Route Data: {{currentPath}}</h3>
+  <h2>Statistics:</h2>
 
-	<table class="table table-inverse table-striped table-bordered">
-		<caption>route name: </caption>
-		<thead>
-		<tr>
-			<th>depth</th>
-			<th>is leafNode</th>
-			<th>node name</th>
-			<th>parent node name</th>
-			<th>parent route name</th>
-			<th>child count</th>
-			<th>sibling count</th>
-			<th>sibling route names</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr>
-			<td>{{node.depth}}</td>
-			<td>{{node.isLeafNode}}</td>
-			<td>{{nodeName}}</td>
-			<td>{{if node.parent.nodeName node.parent.nodeName "n/a"}}</td>
-			<td>{{node.parent.routeName}}</td>
-			<td>{{node.children.length}}</td>
-			<td>{{siblingNodes.length}}</td>
-			<td>
-              {{#if siblingNodes.length}}
-				  <ul>
-                    {{#each siblingNodes as |siblingNode|}}
-						<li>{{#link-to siblingNode.routeName}}{{siblingNode.routeName}}{{/link-to}}</li>
-                    {{/each}}
-				  </ul>
-              {{else}}
-				  n/a
-              {{/if}}
-			</td>
-		</tr>
-		</tbody>
-	</table>
+  {{partial "partials/statistics"}}
 
   {{outlet}}
 </div>
