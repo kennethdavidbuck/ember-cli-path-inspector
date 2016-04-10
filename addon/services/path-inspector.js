@@ -108,9 +108,8 @@ export default Ember.Service.extend({
       .filter(route => route !== rootRouteName)
       .forEach(routeName => {
         let currentNode = routeMapTree;
-        let segments = routeName.split('.');
 
-        segments.forEach((nodeName, index) => {
+        this.get('segments').split('.').forEach((nodeName) => {
           let nextNode = Ember.A(currentNode.children).find(node => node.nodeName === nodeName);
 
           if (!nextNode) {
