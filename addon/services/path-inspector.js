@@ -1,6 +1,6 @@
 /**
  *
- * @class RoutePathInspector.Services.PathInspector
+ * @class EmberCliRoutePathInspector.Services.PathInspector
  * @constructor
  */
 
