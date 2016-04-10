@@ -1,11 +1,7 @@
 .container-non-responsive {
-  /* Margin/padding copied from Bootstrap */
   margin-left: auto;
   margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
 
-  /* Set width to your desired site width */
   width: 940px;
 }
 
@@ -43,7 +39,7 @@ ul {
   display: block;
   line-height: 45px;
   border-radius: 25px;
-  margin: 5px 6px 5px calc(50% - 22px);
+  margin: 5px 2px 5px calc(50% - 23px);
   text-decoration: none;
 }
 
