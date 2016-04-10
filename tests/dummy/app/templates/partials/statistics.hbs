@@ -9,6 +9,7 @@
 		<th>parent node name</th>
 		<th>parent route name</th>
 		<th>child count</th>
+    <th>child route names</th>
 		<th>sibling count</th>
 		<th>sibling route names</th>
 	</tr>
@@ -21,6 +22,17 @@
 		<td>{{if node.parent.nodeName node.parent.nodeName "n/a"}}</td>
 		<td>{{if node.parent.routeName node.parent.routeName "n/a"}}</td>
 		<td>{{node.children.length}}</td>
+    <td>
+      {{#if node.children.length}}
+	      <ul>
+            {{#each node.children as |child|}}
+			    <li>{{#link-to child.routeName}}{{child.routeName}}{{/link-to}}</li>
+            {{/each}}
+	      </ul>
+      {{else}}
+	      n/a
+      {{/if}}
+    </td>
 		<td>{{siblingNodes.length}}</td>
 		<td>
       {{#if siblingNodes.length}}
