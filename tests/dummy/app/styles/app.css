@@ -48,7 +48,12 @@ ul {
   color: #FFF;
 }
 
-.graph-node.active {
+a.graph-node:hover {
+  background-color: #5BC0DE!important;
+  color: #FFF;
+}
+
+a.graph-node.active, .graph-node.active:hover {
   background-color: #337AB7!important;
   color: #FFF;
 }
