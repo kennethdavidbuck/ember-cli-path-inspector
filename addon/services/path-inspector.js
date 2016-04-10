@@ -1,3 +1,9 @@
+/**
+ *
+ * @class RoutePathInspector.Services.PathInspector
+ * @constructor
+ */
+
 import Ember from 'ember';
 
 const {
