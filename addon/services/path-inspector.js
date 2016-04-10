@@ -46,7 +46,7 @@ export default Ember.Service.extend({
     return Object.keys(leafRouteMap).filter(key => leafRouteMap[key]);
   }),
 
-  leafRouteMap: computed(function () {
+  leafRouteMap: computed('routes.[]', function () {
     // We don't want the application route because, by convention, Ember does not prepend it to any routeNames.
     // This means the algorithm will determine that it is a leaf route when it is not.
     const routes = this.get('routes').filter(routeName => routeName !== rootRouteName);
@@ -100,7 +100,8 @@ export default Ember.Service.extend({
       nodeName: rootRouteName,
       routeName: rootRouteName,
       children: [],
-      depth: 0
+      depth: 0,
+      isLeafNode: false
     };
 
     this.get('routes')
@@ -127,6 +128,7 @@ export default Ember.Service.extend({
         });
 
         currentNode.routeName = routeName;
+        currentNode.isLeafNode = this.isLeafRouteName(routeName);
       });
 
     return routeMapTree;

@@ -171,3 +171,23 @@ test('tags nodes with correct depth', function (assert) {
     });
   });
 });
+
+test('correctly tags routeMapTree leaf nodes', function (assert) {
+  assert.expect(8);
+
+  let routeTree = this.subject().get('routeMapTree');
+
+  assert.strictEqual(routeTree.isLeafNode, false, 'root should not be a leaf node');
+
+  routeTree.children.forEach(node => {
+    assert.strictEqual(node.isLeafNode, node.nodeName === 'qux' , '');
+
+    node.children.forEach(node => {
+      assert.strictEqual(node.isLeafNode, false, '');
+
+      node.children.forEach(node => {
+        assert.strictEqual(node.isLeafNode, true, '');
+      });
+    });
+  });
+});
