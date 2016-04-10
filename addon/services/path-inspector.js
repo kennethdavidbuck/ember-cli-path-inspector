@@ -25,7 +25,7 @@ export default Ember.Service.extend({
     assert('Should have been given an object of route names', typeOf(routes) === 'object');
     assert('At a minimum the names object should contain the application route name', routes.hasOwnProperty(rootRouteName));
 
-    return Object.keys(routes);
+    return Object.keys(routes).filter(route => !route.match(/(loading|error)/));
   }),
 
   isLeafRoute({routeName}) {
@@ -109,7 +109,7 @@ export default Ember.Service.extend({
       .forEach(routeName => {
         let currentNode = routeMapTree;
 
-        routeName.split('.').forEach(nodeName => {
+        routeName.split('.').forEach((nodeName) => {
           let nextNode = Ember.A(currentNode.children).find(node => node.nodeName === nodeName);
 
           if (!nextNode) {
