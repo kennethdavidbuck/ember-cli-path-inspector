@@ -2,6 +2,7 @@
  *
  * @class EmberCliRoutePathInspector.Services.PathInspector
  * @constructor
+ * @extends Ember.Service
  */
 
 import Ember from 'ember';
@@ -43,6 +44,11 @@ export default Ember.Service.extend({
   /**
    * Determines whether or not a given route is a leaf route within the application
    *
+   *       // ...snip
+   *       // somewhere inside a route (ex. #didTransition)
+   *       let isLeafRoute = this.get('routeInspectorService').isLeafRoute(this); // true / false
+   *       // ...snip
+   *
    * @method isLeafRoute
    * @param {Ember.Route} route An application route to inspect and determine whether or not it is a leaf route
    * @returns {Boolean} Whether or not the route is a leaf route
@@ -54,6 +60,11 @@ export default Ember.Service.extend({
 
   /**
    * Determines whether or not a given routeName is that of a leaf route within the application.
+   *
+   *        // ...snip
+   *        // somewhere inside a route (ex. didTransition)
+   *        let isLeafRouteName = this.get('routeInspectorService').isLeafRouteName(this.get('routeName')); // true / false
+   *        // ...snip
    *
    * @method isLeafRouteName
    * @param {String} candidateRouteName An application route name to inspect and determine whether or not it is a leaf route.
@@ -70,6 +81,11 @@ export default Ember.Service.extend({
 
   /**
    * A list of all leaf route names in the application
+   *
+   *        // assuming a boilerplate application with only an index route.
+   *        // ...snip
+   *        let leafRouteNames = this.get('routeInspectorService.leafRouteNames'); // ['index']
+   *        // ...snip
    *
    * @property {[String]} leafRouteNames A list of all leaf route names in the application
    * @public
