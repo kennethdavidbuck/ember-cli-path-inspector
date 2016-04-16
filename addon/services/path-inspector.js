@@ -228,7 +228,6 @@ export default Ember.Service.extend({
    *
    *        // ...snip
    *
-   *
    * @method nodeForRouteName
    * @param {String} routeName An application route name to fetch a parallel tree node for
    * @returns {Object} The parallel tree node for a given route name
