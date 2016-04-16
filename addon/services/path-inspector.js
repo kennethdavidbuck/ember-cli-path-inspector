@@ -46,7 +46,9 @@ export default Ember.Service.extend({
    *
    *       // ...snip
    *       // somewhere inside a route (ex. #didTransition)
+   *
    *       let isLeafRoute = this.get('pathInspectorService').isLeafRoute(this); // true / false
+   *
    *       // ...snip
    *
    * @method isLeafRoute
@@ -63,7 +65,9 @@ export default Ember.Service.extend({
    *
    *        // ...snip
    *        // somewhere inside a route (ex. didTransition)
+   *
    *        let isLeafRouteName = this.get('pathInspectorService').isLeafRouteName(this.get('routeName')); // true / false
+   *
    *        // ...snip
    *
    * @method isLeafRouteName
@@ -83,11 +87,11 @@ export default Ember.Service.extend({
    * A list of all leaf route names in the application
    *
    *        // ...snip
-   *
    *        // Assuming a boilerplate application with only an index route.
-   *        let leafRouteNames = this.get('pathInspectorService.leafRouteNames');
-   *        // result: ['index']
    *
+   *        let leafRouteNames = this.get('pathInspectorService.leafRouteNames');
+   *
+   *        // result: ['index']
    *        // ...snip
    *
    * @property {[String]} leafRouteNames A list of all leaf route names in the application
@@ -104,11 +108,11 @@ export default Ember.Service.extend({
    * whether or not the keyed route name is that of a leaf route
    *
    *        // ...snip
-   *
    *        // Assuming a boilerplate application with only an index route
-   *        let leafRouteMap = this.get('pathInspectorService.leafRouteMap');
-   *        // result: {application: false, 'application.index': true}
    *
+   *        let leafRouteMap = this.get('pathInspectorService.leafRouteMap');
+   *
+   *        // result: {application: false, 'application.index': true}
    *        // ...snip
    *
    * @property {Object} leafRouteMap
@@ -141,11 +145,11 @@ export default Ember.Service.extend({
    * Retrieves the route names for the siblings of a given route name
    *
    *        // ...snip
-   *
    *        // Assuming the following routes: application, application.index, application.foo
-   *        let siblingPaths = this.get('pathInspectorService').siblingPathsForRouteName('application.index');
-   *        // result: ['foo']
    *
+   *        let siblingPaths = this.get('pathInspectorService').siblingPathsForRouteName('application.index');
+   *
+   *        // result: ['foo']
    *        // ... snip
    *
    * @method siblingPathsForRouteName
@@ -161,9 +165,10 @@ export default Ember.Service.extend({
    * Retrieves the parallel route tree nodes representing the siblings for a given route name
    *
    *        // ...snip
-   *
    *        // Assuming the following routes: application, application.index, application.foo
+   *
    *        let siblingNodes = this.get('pathInspectorService').siblingNodesForRouteName('application.index');
+   *
    *        // result:
    *              [
    *                {
@@ -177,7 +182,6 @@ export default Ember.Service.extend({
    *                  }
    *                }
    *              ]
-   *
    *        // ...snip
    *
    * @method siblingNodesForRouteName
@@ -199,6 +203,7 @@ export default Ember.Service.extend({
    *        // ...snip
    *
    *        let node = this.get('pathInspectorService').nodeForRouteName('application.index');
+   *
    *        // result:
    *              {
    *                nodeName: 'index',
@@ -241,9 +246,10 @@ export default Ember.Service.extend({
    * A parallel tree of nodes to that of the applications route map/tree.
    *
    *        // ...snip
-   *
    *        // Assuming the following routes: application, application.index
+   *
    *        let routeMapTree = this.get('pathInspectorService.routeMapTree');
+   *
    *        // result:
    *              {
    *                nodeName: 'application',
@@ -258,7 +264,6 @@ export default Ember.Service.extend({
    *                  parent: {} // the same outer node we are dealing with
    *                ]
    *              }
-   *
    *        // ...snip
    *
    * @property {Object} routeMapTree
