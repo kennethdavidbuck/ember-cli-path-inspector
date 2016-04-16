@@ -1,0 +1,180 @@
+{
+    "project": {
+        "name": "ember-cli-path-inspector",
+        "description": "Route path introspection for your application.",
+        "version": "0.1.1.ad89ed00"
+    },
+    "files": {
+        "addon/services/path-inspector.js": {
+            "name": "addon/services/path-inspector.js",
+            "modules": {},
+            "classes": {
+                "EmberCliRoutePathInspector.Services.PathInspector": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "EmberCliRoutePathInspector.Services.PathInspector": {
+            "name": "EmberCliRoutePathInspector.Services.PathInspector",
+            "shortname": "EmberCliRoutePathInspector.Services.PathInspector",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "addon/services/path-inspector.js",
+            "line": 1,
+            "is_constructor": 1
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 28,
+            "itemtype": "property",
+            "name": "routes",
+            "type": "[String]",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 40,
+            "itemtype": "method",
+            "name": "isLeafRoute",
+            "params": [
+                {
+                    "name": "routeName",
+                    "description": "",
+                    "type": "Ember.Route"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 49,
+            "itemtype": "method",
+            "name": "isLeafRouteName",
+            "params": [
+                {
+                    "name": "candidateRouteName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 62,
+            "itemtype": "property",
+            "name": "leafRouteNames",
+            "type": "[String]",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 71,
+            "itemtype": "property",
+            "name": "leafRouteMap",
+            "type": "Object",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 97,
+            "itemtype": "method",
+            "name": "siblingPathsForRouteName",
+            "params": [
+                {
+                    "name": "routeName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "[String]"
+            },
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 106,
+            "itemtype": "method",
+            "name": "siblingNodesForRouteName",
+            "params": [
+                {
+                    "name": "routeName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "[Object]"
+            },
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 119,
+            "itemtype": "method",
+            "name": "nodeForRouteName",
+            "params": [
+                {
+                    "name": "routeName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 138,
+            "itemtype": "property",
+            "name": "routeMapTree",
+            "type": "Object",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:40"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:49"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:97"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:106"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:119"
+        }
+    ]
+}
