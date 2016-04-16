@@ -1,4 +1,5 @@
 /**
+ * Provides additional non-invasive route tree introspection
  *
  * @class EmberCliRoutePathInspector.Services.PathInspector
  * @constructor
