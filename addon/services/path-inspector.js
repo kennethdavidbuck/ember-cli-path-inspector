@@ -26,7 +26,10 @@ export default Ember.Service.extend({
   },
 
   /**
+   * A list of all route paths in the application
+   *
    * @property {[String]} routes
+   * @public
    */
   routes: computed('router.router.recognizer.names', function () {
     const routes = this.get('router.router.recognizer.names');
@@ -38,18 +41,24 @@ export default Ember.Service.extend({
   }),
 
   /**
+   * Determines whether or not a given route is a leaf route within the application
+   *
    * @method isLeafRoute
    * @param {Ember.Route} routeName
    * @returns {Boolean}
+   * @public
    */
   isLeafRoute({routeName}) {
     return this.isLeafRouteName(routeName);
   },
 
   /**
+   * Determines whether or not a given routeName is that of a leaf route within the application.
+   *
    * @method isLeafRouteName
    * @param {string} candidateRouteName
    * @returns {Boolean}
+   * @public
    */
   isLeafRouteName(candidateRouteName) {
     const leafRouteMap = this.get('leafRouteMap');
@@ -60,7 +69,10 @@ export default Ember.Service.extend({
   },
 
   /**
+   * A list of all leaf route names in the application
+   *
    * @property {[String]} leafRouteNames
+   * @public
    */
   leafRouteNames: computed(function () {
     const leafRouteMap = this.get('leafRouteMap');
@@ -69,7 +81,11 @@ export default Ember.Service.extend({
   }),
 
   /**
+   * A hash where route names make up the keys, which are paired with either a true or false boolean value indicating
+   * whether or not the keyed route name is that of a leaf route
+   *
    * @property {Object} leafRouteMap
+   * @public
    */
   leafRouteMap: computed('routes.[]', function () {
     // We don't want the application route because, by convention, Ember does not prepend it to any routeNames.
@@ -95,18 +111,24 @@ export default Ember.Service.extend({
   }),
 
   /**
+   * Retrieves the route names for the immediate siblings of a given route name
+   *
    * @method siblingPathsForRouteName
    * @param {String} routeName
    * @returns {[String]}
+   * @public
    */
   siblingPathsForRouteName(routeName) {
     return this.siblingNodesForRouteName(routeName).map(node => node.routeName);
   },
 
   /**
+   * Retrieves the parallel route tree nodes representing the immediate siblings for a given route name
+   *
    * @method siblingNodesForRouteName
    * @param {String} routeName
    * @returns {[Object]}
+   * @public
    */
   siblingNodesForRouteName(routeName) {
     if (routeName === rootRouteName) {
@@ -117,9 +139,12 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Retrieves the parallel route tree node representing the a given route name.
+   *
    * @method nodeForRouteName
    * @param {String} routeName
    * @returns {Object}
+   * @public
    */
   nodeForRouteName(routeName) {
     assert('Route Inspector: You queried a node for a route that does not exist!', this.get('leafRouteMap').hasOwnProperty(routeName));
@@ -136,7 +161,10 @@ export default Ember.Service.extend({
   },
 
   /**
+   * A parallel tree of nodes to that of the applications route map/tree.
+   *
    * @property {Object} routeMapTree
+   * @public
    */
   routeMapTree: computed(function () {
     const routeMapTree = {
