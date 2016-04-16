@@ -29,6 +29,12 @@ export default Ember.Service.extend({
   /**
    * A list of all route paths in the application
    *
+   *        // ...snip
+   *
+   *        let routeNames = this.get('pathInspectorService.routes');
+   *
+   *        // ex. result: ['index', 'foo.bar', 'baz.qux']
+   *        // ...
    * @property {[String]} routes
    * @public
    */
