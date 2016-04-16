@@ -101,7 +101,7 @@ export default Ember.Service.extend({
    *        // result: ['index']
    *        // ...snip
    *
-   * @property {[String]} leafRouteNames A list of all leaf route names in the application
+   * @property {[String]} leafRouteNames
    * @public
    */
   leafRouteNames: computed(function () {
