@@ -1,5 +1,21 @@
 /**
- * Provides additional non-invasive route tree introspection
+ * Provides additional non-invasive route tree introspection using a parallel tree of nodes
+ *
+ *        // Example Node:
+ *        {
+ *          nodeName: 'index',
+ *          isLeafNode: true,
+ *          routeName: 'index',
+ *          children: [],
+ *          depth: 1,
+ *          parent: {
+ *            nodeName: 'application',
+ *            isLeafNode: false,
+ *            routeName: 'application',
+ *            depth: 0,
+ *            children: [] // this would contain the same outer node we are dealing with
+ *          }
+ *        }
  *
  * @class EmberCliRoutePathInspector.Services.PathInspector
  * @constructor
