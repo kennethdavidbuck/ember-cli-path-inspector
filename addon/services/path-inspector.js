@@ -100,6 +100,11 @@ export default Ember.Service.extend({
    * A hash where route names make up the keys, which are paired with either a true or false boolean value indicating
    * whether or not the keyed route name is that of a leaf route
    *
+   *        // assuming a boilerplate application with only an index route
+   *        // ...snip
+   *        let leafRouteMap = this.get('routeInspectorService.leafRouteMap'); // {application: false, 'application.index': true}
+   *        // ...snip
+   *
    * @property {Object} leafRouteMap
    * @public
    */
