@@ -10,8 +10,6 @@ export default Ember.Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    let tree = this.getAttr('tree');
-
-    Ember.Logger.log(tree);
+    this.getAttr('tree');
   }
 });
