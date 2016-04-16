@@ -49,48 +49,6 @@ export default Ember.Service.extend({
   }),
 
   /**
-   * Determines whether or not a given route is a leaf route within the application
-   *
-   *       // ...snip
-   *       // somewhere inside a route (ex. #didTransition)
-   *
-   *       let isLeafRoute = this.get('pathInspectorService').isLeafRoute(this); // true / false
-   *
-   *       // ...snip
-   *
-   * @method isLeafRoute
-   * @param {Ember.Route} route An application route to inspect and determine whether or not it is a leaf route
-   * @returns {Boolean} Whether or not the route is a leaf route
-   * @public
-   */
-  isLeafRoute({routeName}) {
-    return this.isLeafRouteName(routeName);
-  },
-
-  /**
-   * Determines whether or not a given routeName is that of a leaf route within the application.
-   *
-   *        // ...snip
-   *        // somewhere inside a route (ex. didTransition)
-   *
-   *        let isLeafRouteName = this.get('pathInspectorService').isLeafRouteName(this.get('routeName')); // true / false
-   *
-   *        // ...snip
-   *
-   * @method isLeafRouteName
-   * @param {String} candidateRouteName An application route name to inspect and determine whether or not it is a leaf route.
-   * @returns {Boolean} Whether or not the route name is that of an application leaf route
-   * @public
-   */
-  isLeafRouteName(candidateRouteName) {
-    const leafRouteMap = this.get('leafRouteMap');
-
-    assert('Route Inspector: You queried a route that is not part of this application', leafRouteMap.hasOwnProperty(candidateRouteName));
-
-    return leafRouteMap[candidateRouteName];
-  },
-
-  /**
    * A list of all leaf route names in the application
    *
    *        // ...snip
@@ -147,6 +105,113 @@ export default Ember.Service.extend({
       return leafRouteMap;
     }, leafRouteMap);
   }),
+
+  /**
+   * A parallel tree of nodes to that of the applications route map/tree.
+   *
+   *        // ...snip
+   *        // Assuming the following routes: application, application.index
+   *
+   *        let routeMapTree = this.get('pathInspectorService.routeMapTree');
+   *
+   *        // result:
+   *              {
+   *                nodeName: 'application',
+   *                routeName: 'application',
+   *                isLeafNode: false,
+   *                depth: 0,
+   *                children: [
+   *                  nodeName: 'index',
+   *                  routeName: 'index',
+   *                  children: [],
+   *                  depth: 1,
+   *                  parent: {} // the same outer node we are dealing with
+   *                ]
+   *              }
+   *        // ...snip
+   *
+   * @property {Object} routeMapTree
+   * @public
+   */
+  routeMapTree: computed(function () {
+    const routeMapTree = {
+      nodeName: rootRouteName,
+      routeName: rootRouteName,
+      children: [],
+      depth: 0,
+      isLeafNode: false
+    };
+
+    this.get('routes')
+      .filter(route => route !== rootRouteName)
+      .forEach(routeName => {
+        let currentNode = routeMapTree;
+
+        routeName.split('.').forEach((nodeName) => {
+          let nextNode = Ember.A(currentNode.children).find(node => node.nodeName === nodeName);
+
+          if (!nextNode) {
+            nextNode = {
+              parent: currentNode,
+              nodeName: nodeName,
+              children: [],
+              depth: currentNode.depth + 1
+            };
+
+            currentNode.children.push(nextNode);
+          }
+
+          currentNode = nextNode;
+        });
+
+        currentNode.routeName = routeName;
+        currentNode.isLeafNode = this.isLeafRouteName(routeName);
+      });
+
+    return routeMapTree;
+  }),
+
+  /**
+   * Determines whether or not a given route is a leaf route within the application
+   *
+   *       // ...snip
+   *       // somewhere inside a route (ex. #didTransition)
+   *
+   *       let isLeafRoute = this.get('pathInspectorService').isLeafRoute(this); // true / false
+   *
+   *       // ...snip
+   *
+   * @method isLeafRoute
+   * @param {Ember.Route} route An application route to inspect and determine whether or not it is a leaf route
+   * @returns {Boolean} Whether or not the route is a leaf route
+   * @public
+   */
+  isLeafRoute({routeName}) {
+    return this.isLeafRouteName(routeName);
+  },
+
+  /**
+   * Determines whether or not a given routeName is that of a leaf route within the application.
+   *
+   *        // ...snip
+   *        // somewhere inside a route (ex. didTransition)
+   *
+   *        let isLeafRouteName = this.get('pathInspectorService').isLeafRouteName(this.get('routeName')); // true / false
+   *
+   *        // ...snip
+   *
+   * @method isLeafRouteName
+   * @param {String} candidateRouteName An application route name to inspect and determine whether or not it is a leaf route.
+   * @returns {Boolean} Whether or not the route name is that of an application leaf route
+   * @public
+   */
+  isLeafRouteName(candidateRouteName) {
+    const leafRouteMap = this.get('leafRouteMap');
+
+    assert('Route Inspector: You queried a route that is not part of this application', leafRouteMap.hasOwnProperty(candidateRouteName));
+
+    return leafRouteMap[candidateRouteName];
+  },
 
   /**
    * Retrieves the route names for the siblings of a given route name
@@ -246,70 +311,5 @@ export default Ember.Service.extend({
       .reduce((parentNode, nodeName) => {
         return parentNode.children.find(childNode => childNode.nodeName === nodeName);
       }, this.get('routeMapTree'));
-  },
-
-  /**
-   * A parallel tree of nodes to that of the applications route map/tree.
-   *
-   *        // ...snip
-   *        // Assuming the following routes: application, application.index
-   *
-   *        let routeMapTree = this.get('pathInspectorService.routeMapTree');
-   *
-   *        // result:
-   *              {
-   *                nodeName: 'application',
-   *                routeName: 'application',
-   *                isLeafNode: false,
-   *                depth: 0,
-   *                children: [
-   *                  nodeName: 'index',
-   *                  routeName: 'index',
-   *                  children: [],
-   *                  depth: 1,
-   *                  parent: {} // the same outer node we are dealing with
-   *                ]
-   *              }
-   *        // ...snip
-   *
-   * @property {Object} routeMapTree
-   * @public
-   */
-  routeMapTree: computed(function () {
-    const routeMapTree = {
-      nodeName: rootRouteName,
-      routeName: rootRouteName,
-      children: [],
-      depth: 0,
-      isLeafNode: false
-    };
-
-    this.get('routes')
-      .filter(route => route !== rootRouteName)
-      .forEach(routeName => {
-        let currentNode = routeMapTree;
-
-        routeName.split('.').forEach((nodeName) => {
-          let nextNode = Ember.A(currentNode.children).find(node => node.nodeName === nodeName);
-
-          if (!nextNode) {
-            nextNode = {
-              parent: currentNode,
-              nodeName: nodeName,
-              children: [],
-              depth: currentNode.depth + 1
-            };
-
-            currentNode.children.push(nextNode);
-          }
-
-          currentNode = nextNode;
-        });
-
-        currentNode.routeName = routeName;
-        currentNode.isLeafNode = this.isLeafRouteName(routeName);
-      });
-
-    return routeMapTree;
-  })
+  }
 });
