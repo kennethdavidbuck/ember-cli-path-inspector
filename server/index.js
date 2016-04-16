@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.get('/docs', function(req, res){
-    res.redirect('/docs/index.html');
+  app.get('/ember-cli-path-inspector/docs', function(req, res){
+    res.redirect('/ember-cli-path-inspector/docs/index.html');
   });
 };
