@@ -44,8 +44,8 @@ export default Ember.Service.extend({
    * Determines whether or not a given route is a leaf route within the application
    *
    * @method isLeafRoute
-   * @param {Ember.Route} routeName
-   * @returns {Boolean}
+   * @param {Ember.Route} route An application route to inspect and determine whether or not it is a leaf route
+   * @returns {Boolean} Whether or not the route is a leaf route
    * @public
    */
   isLeafRoute({routeName}) {
@@ -56,8 +56,8 @@ export default Ember.Service.extend({
    * Determines whether or not a given routeName is that of a leaf route within the application.
    *
    * @method isLeafRouteName
-   * @param {string} candidateRouteName
-   * @returns {Boolean}
+   * @param {String} candidateRouteName An application route name to inspect and determine whether or not it is a leaf route.
+   * @returns {Boolean} Whether or not the route name is that of an application leaf route
    * @public
    */
   isLeafRouteName(candidateRouteName) {
@@ -71,7 +71,7 @@ export default Ember.Service.extend({
   /**
    * A list of all leaf route names in the application
    *
-   * @property {[String]} leafRouteNames
+   * @property {[String]} leafRouteNames A list of all leaf route names in the application
    * @public
    */
   leafRouteNames: computed(function () {
@@ -111,11 +111,11 @@ export default Ember.Service.extend({
   }),
 
   /**
-   * Retrieves the route names for the immediate siblings of a given route name
+   * Retrieves the route names for the siblings of a given route name
    *
    * @method siblingPathsForRouteName
-   * @param {String} routeName
-   * @returns {[String]}
+   * @param {String} routeName A route name to fetch the sibling route names for
+   * @returns {[String]} A list of found sibling route names
    * @public
    */
   siblingPathsForRouteName(routeName) {
@@ -123,11 +123,11 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Retrieves the parallel route tree nodes representing the immediate siblings for a given route name
+   * Retrieves the parallel route tree nodes representing the siblings for a given route name
    *
    * @method siblingNodesForRouteName
-   * @param {String} routeName
-   * @returns {[Object]}
+   * @param {String} routeName A route name to fetch the sibling parallel tree nodes for
+   * @returns {[Object]} A list of parallel tree nodes representing the siblings for a given route name
    * @public
    */
   siblingNodesForRouteName(routeName) {
@@ -142,8 +142,8 @@ export default Ember.Service.extend({
    * Retrieves the parallel route tree node representing the a given route name.
    *
    * @method nodeForRouteName
-   * @param {String} routeName
-   * @returns {Object}
+   * @param {String} routeName An application route name to fetch a parallel tree node for
+   * @returns {Object} The parallel tree node for a given route name
    * @public
    */
   nodeForRouteName(routeName) {
