@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-cli-path-inspector" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.1.1.ad89ed00</em>
+            <em>API Docs for: 0.1.1.cbe27efc</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -81,9 +81,27 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
+ * Provides additional non-invasive route tree introspection using a parallel tree of nodes
+ *
+ *        // Example Node:
+ *        {
+ *          nodeName: &#x27;index&#x27;,
+ *          isLeafNode: true,
+ *          routeName: &#x27;index&#x27;,
+ *          children: [],
+ *          depth: 1,
+ *          parent: {
+ *            nodeName: &#x27;application&#x27;,
+ *            isLeafNode: false,
+ *            routeName: &#x27;application&#x27;,
+ *            depth: 0,
+ *            children: [] // this would contain the same outer node we are dealing with
+ *          }
+ *        }
  *
  * @class EmberCliRoutePathInspector.Services.PathInspector
  * @constructor
+ * @extends Ember.Service
  */
 
 import Ember from &#x27;ember&#x27;;
@@ -108,7 +126,12 @@ export default Ember.Service.extend({
   },
 
   /**
+   * A list of all route paths in the application
+   *
+   *        let routeNames = this.get(&#x27;pathInspectorService.routes&#x27;); // ex. [&#x27;index&#x27;, &#x27;foo.bar&#x27;, &#x27;baz.qux&#x27;]
+   *
    * @property {[String]} routes
+   * @public
    */
   routes: computed(&#x27;router.router.recognizer.names&#x27;, function () {
     const routes = this.get(&#x27;router.router.recognizer.names&#x27;);
@@ -120,29 +143,13 @@ export default Ember.Service.extend({
   }),
 
   /**
-   * @method isLeafRoute
-   * @param {Ember.Route} routeName
-   * @returns {Boolean}
-   */
-  isLeafRoute({routeName}) {
-    return this.isLeafRouteName(routeName);
-  },
-
-  /**
-   * @method isLeafRouteName
-   * @param {string} candidateRouteName
-   * @returns {Boolean}
-   */
-  isLeafRouteName(candidateRouteName) {
-    const leafRouteMap = this.get(&#x27;leafRouteMap&#x27;);
-
-    assert(&#x27;Route Inspector: You queried a route that is not part of this application&#x27;, leafRouteMap.hasOwnProperty(candidateRouteName));
-
-    return leafRouteMap[candidateRouteName];
-  },
-
-  /**
+   * A list of all leaf route names in the application
+   *
+   *        // Assuming a boilerplate application with only an index route.
+   *        let leafRouteNames = this.get(&#x27;pathInspectorService.leafRouteNames&#x27;); // [&#x27;index&#x27;]
+   *
    * @property {[String]} leafRouteNames
+   * @public
    */
   leafRouteNames: computed(function () {
     const leafRouteMap = this.get(&#x27;leafRouteMap&#x27;);
@@ -151,7 +158,14 @@ export default Ember.Service.extend({
   }),
 
   /**
+   * A hash where route names make up the keys, which are paired with either a true or false boolean value indicating
+   * whether or not the keyed route name is that of a leaf route
+   *
+   *        // Assuming a boilerplate application with only an index route
+   *        let leafRouteMap = this.get(&#x27;pathInspectorService.leafRouteMap&#x27;); // {application: false, &#x27;application.index&#x27;: true}
+   *
    * @property {Object} leafRouteMap
+   * @public
    */
   leafRouteMap: computed(&#x27;routes.[]&#x27;, function () {
     // We don&#x27;t want the application route because, by convention, Ember does not prepend it to any routeNames.
@@ -177,48 +191,28 @@ export default Ember.Service.extend({
   }),
 
   /**
-   * @method siblingPathsForRouteName
-   * @param {String} routeName
-   * @returns {[String]}
-   */
-  siblingPathsForRouteName(routeName) {
-    return this.siblingNodesForRouteName(routeName).map(node =&gt; node.routeName);
-  },
-
-  /**
-   * @method siblingNodesForRouteName
-   * @param {String} routeName
-   * @returns {[Object]}
-   */
-  siblingNodesForRouteName(routeName) {
-    if (routeName === rootRouteName) {
-      return [];
-    }
-
-    return this.nodeForRouteName(routeName).parent.children.filter(siblingNode =&gt; siblingNode.routeName !== routeName);
-  },
-
-  /**
-   * @method nodeForRouteName
-   * @param {String} routeName
-   * @returns {Object}
-   */
-  nodeForRouteName(routeName) {
-    assert(&#x27;Route Inspector: You queried a node for a route that does not exist!&#x27;, this.get(&#x27;leafRouteMap&#x27;).hasOwnProperty(routeName));
-
-    if (routeName === rootRouteName) {
-      return this.get(&#x27;routeMapTree&#x27;);
-    }
-
-    return routeName
-      .split(&#x27;.&#x27;)
-      .reduce((parentNode, nodeName) =&gt; {
-        return parentNode.children.find(childNode =&gt; childNode.nodeName === nodeName);
-      }, this.get(&#x27;routeMapTree&#x27;));
-  },
-
-  /**
+   * A parallel tree of nodes to that of the applications route map/tree.
+   *
+   *        // Assuming the following routes: application, application.index
+   *        let routeMapTree = this.get(&#x27;pathInspectorService.routeMapTree&#x27;);
+   *
+   *        // result:
+   *              {
+   *                nodeName: &#x27;application&#x27;,
+   *                routeName: &#x27;application&#x27;,
+   *                isLeafNode: false,
+   *                depth: 0,
+   *                children: [
+   *                  nodeName: &#x27;index&#x27;,
+   *                  routeName: &#x27;index&#x27;,
+   *                  children: [],
+   *                  depth: 1,
+   *                  parent: {} // the same outer node we are dealing with
+   *                ]
+   *              }
+   *
    * @property {Object} routeMapTree
+   * @public
    */
   routeMapTree: computed(function () {
     const routeMapTree = {
@@ -256,7 +250,127 @@ export default Ember.Service.extend({
       });
 
     return routeMapTree;
-  })
+  }),
+
+  /**
+   * Determines whether or not a given route is a leaf route within the application
+   *
+   *       let isLeafRoute = this.get(&#x27;pathInspectorService&#x27;).isLeafRoute(this); // true / false
+   *
+   * @method isLeafRoute
+   * @param {Ember.Route} route An application route to inspect and determine whether or not it is a leaf route
+   * @returns {Boolean} Whether or not the route is a leaf route
+   * @public
+   */
+  isLeafRoute({routeName}) {
+    return this.isLeafRouteName(routeName);
+  },
+
+  /**
+   * Determines whether or not a given routeName is that of a leaf route within the application.
+   *
+   *        let isLeafRouteName = this.get(&#x27;pathInspectorService&#x27;).isLeafRouteName(this.get(&#x27;routeName&#x27;)); // true / false
+   *
+   * @method isLeafRouteName
+   * @param {String} candidateRouteName An application route name to inspect and determine whether or not it is a leaf route.
+   * @returns {Boolean} Whether or not the route name is that of an application leaf route
+   * @public
+   */
+  isLeafRouteName(candidateRouteName) {
+    const leafRouteMap = this.get(&#x27;leafRouteMap&#x27;);
+
+    assert(&#x27;Route Inspector: You queried a route that is not part of this application&#x27;, leafRouteMap.hasOwnProperty(candidateRouteName));
+
+    return leafRouteMap[candidateRouteName];
+  },
+
+  /**
+   * Retrieves the route names for the siblings of a given route name
+   *
+   *        // Assuming the following routes: application, application.index, application.foo
+   *        let siblingPaths = this.get(&#x27;pathInspectorService&#x27;).siblingPathsForRouteName(&#x27;application.index&#x27;); // [&#x27;foo&#x27;]
+   *
+   * @method siblingPathsForRouteName
+   * @param {String} routeName A route name to fetch the sibling route names for
+   * @returns {[String]} A list of found sibling route names
+   * @public
+   */
+  siblingPathsForRouteName(routeName) {
+    return this.siblingNodesForRouteName(routeName).map(node =&gt; node.routeName);
+  },
+
+  /**
+   * Retrieves the parallel route tree nodes representing the siblings for a given route name
+   *
+   *        // Assuming the following routes: application, application.index, application.foo
+   *        let siblingNodes = this.get(&#x27;pathInspectorService&#x27;).siblingNodesForRouteName(&#x27;application.index&#x27;);
+   *
+   *        // result:
+   *              [
+   *                {
+   *                  nodeName: &#x27;foo&#x27;,
+   *                  isLeafNode: true,
+   *                  routeName: &#x27;foo&#x27;,
+   *                  children: [],
+   *                  depth: 1,
+   *                  parent: {
+   *                    nodeName: &#x27;application&#x27;
+   *                  }
+   *                }
+   *              ]
+   *
+   * @method siblingNodesForRouteName
+   * @param {String} routeName A route name to fetch the sibling parallel tree nodes for
+   * @returns {[Object]} A list of parallel tree nodes representing the siblings for a given route name
+   * @public
+   */
+  siblingNodesForRouteName(routeName) {
+    if (routeName === rootRouteName) {
+      return [];
+    }
+
+    return this.nodeForRouteName(routeName).parent.children.filter(siblingNode =&gt; siblingNode.routeName !== routeName);
+  },
+
+  /**
+   * Retrieves the parallel route tree node representing the a given route name.
+   *
+   *        let node = this.get(&#x27;pathInspectorService&#x27;).nodeForRouteName(&#x27;application.index&#x27;);
+   *
+   *        // result:
+   *              {
+   *                nodeName: &#x27;index&#x27;,
+   *                isLeafNode: true,
+   *                routeName: &#x27;index&#x27;,
+   *                children: [],
+   *                depth: 1,
+   *                parent: {
+   *                  nodeName: &#x27;application&#x27;,
+   *                  isLeafNode: false,
+   *                  routeName: &#x27;application&#x27;,
+   *                  depth: 0,
+   *                  children: [] // this would contain the same outer node we are dealing with
+   *                }
+   *              }
+   *
+   * @method nodeForRouteName
+   * @param {String} routeName An application route name to fetch a parallel tree node for
+   * @returns {Object} The parallel tree node for a given route name
+   * @public
+   */
+  nodeForRouteName(routeName) {
+    assert(&#x27;Route Inspector: You queried a node for a route that does not exist!&#x27;, this.get(&#x27;leafRouteMap&#x27;).hasOwnProperty(routeName));
+
+    if (routeName === rootRouteName) {
+      return this.get(&#x27;routeMapTree&#x27;);
+    }
+
+    return routeName
+      .split(&#x27;.&#x27;)
+      .reduce((parentNode, nodeName) =&gt; {
+        return parentNode.children.find(childNode =&gt; childNode.nodeName === nodeName);
+      }, this.get(&#x27;routeMapTree&#x27;));
+  }
 });
 
     </pre>

@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="ember-cli-path-inspector" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.1.1.ad89ed00</em>
+            <em>API Docs for: 0.1.1.cbe27efc</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,6 +79,9 @@
 <h1>EmberCliRoutePathInspector.Services.PathInspector Class</h1>
 <div class="box meta">
 
+        <div class="extends">
+            Extends Ember.Service
+        </div>
 
         <div class="foundat">
             Defined in: <a href="../files/addon_services_path-inspector.js.html#l1"><code>addon&#x2F;services&#x2F;path-inspector.js:1</code></a>
@@ -89,7 +92,23 @@
 
 
 <div class="box intro">
-    
+    <p>Provides additional non-invasive route tree introspection using a parallel tree of nodes</p>
+<pre class="code prettyprint"><code>   // Example Node:
+   {
+     nodeName: 'index',
+     isLeafNode: true,
+     routeName: 'index',
+     children: [],
+     depth: 1,
+     parent: {
+       nodeName: 'application',
+       isLeafNode: false,
+       routeName: 'application',
+       depth: 0,
+       children: [] // this would contain the same outer node we are dealing with
+     }
+   }</code></pre>
+
 </div>
 
     <div class="constructor">
@@ -141,24 +160,24 @@
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
-                    <ul class="index-list methods">
-                            <li class="index-item method">
+                    <ul class="index-list methods extends">
+                            <li class="index-item method public">
                                 <a href="#method_isLeafRoute">isLeafRoute</a>
 
                             </li>
-                            <li class="index-item method">
+                            <li class="index-item method public">
                                 <a href="#method_isLeafRouteName">isLeafRouteName</a>
 
                             </li>
-                            <li class="index-item method">
+                            <li class="index-item method public">
                                 <a href="#method_nodeForRouteName">nodeForRouteName</a>
 
                             </li>
-                            <li class="index-item method">
+                            <li class="index-item method public">
                                 <a href="#method_siblingNodesForRouteName">siblingNodesForRouteName</a>
 
                             </li>
-                            <li class="index-item method">
+                            <li class="index-item method public">
                                 <a href="#method_siblingPathsForRouteName">siblingPathsForRouteName</a>
 
                             </li>
@@ -168,20 +187,20 @@
                 <div class="index-section properties">
                     <h3>Properties</h3>
 
-                    <ul class="index-list properties">
-                            <li class="index-item property">
+                    <ul class="index-list properties extends">
+                            <li class="index-item property public">
                                 <a href="#property_leafRouteMap">leafRouteMap</a>
 
                             </li>
-                            <li class="index-item property">
+                            <li class="index-item property public">
                                 <a href="#property_leafRouteNames">leafRouteNames</a>
 
                             </li>
-                            <li class="index-item property">
+                            <li class="index-item property public">
                                 <a href="#property_routeMapTree">routeMapTree</a>
 
                             </li>
-                            <li class="index-item property">
+                            <li class="index-item property public">
                                 <a href="#property_routes">routes</a>
 
                             </li>
@@ -194,13 +213,13 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_isLeafRoute" class="method item">
+<div id="method_isLeafRoute" class="method item public">
     <h3 class="name"><code>isLeafRoute</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>routeName</code>
+                        <code>route</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -210,6 +229,7 @@
         </span>
 
 
+        <span class="flag public">public</span>
 
 
 
@@ -218,7 +238,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l40"><code>addon&#x2F;services&#x2F;path-inspector.js:40</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l173"><code>addon&#x2F;services&#x2F;path-inspector.js:173</code></a>
         </p>
 
 
@@ -226,7 +246,9 @@
     </div>
 
     <div class="description">
-        
+        <p>Determines whether or not a given route is a leaf route within the application</p>
+<pre class="code prettyprint"><code>  let isLeafRoute = this.get('pathInspectorService').isLeafRoute(this); // true / false</code></pre>
+
     </div>
 
         <div class="params">
@@ -234,12 +256,13 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">routeName</code>
+                        <code class="param-name">route</code>
                         <span class="type">Ember.Route</span>
 
 
                     <div class="param-description">
-                         
+                        <p>An application route to inspect and determine whether or not it is a leaf route</p>
+
                     </div>
 
                 </li>
@@ -251,12 +274,14 @@
 
             <div class="returns-description">
                         <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    <p>Whether or not the route is a leaf route</p>
+
             </div>
         </div>
 
 
 </div>
-<div id="method_isLeafRouteName" class="method item">
+<div id="method_isLeafRouteName" class="method item public">
     <h3 class="name"><code>isLeafRouteName</code></h3>
 
         <div class="args">
@@ -272,6 +297,7 @@
         </span>
 
 
+        <span class="flag public">public</span>
 
 
 
@@ -280,7 +306,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l49"><code>addon&#x2F;services&#x2F;path-inspector.js:49</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l187"><code>addon&#x2F;services&#x2F;path-inspector.js:187</code></a>
         </p>
 
 
@@ -288,7 +314,9 @@
     </div>
 
     <div class="description">
-        
+        <p>Determines whether or not a given routeName is that of a leaf route within the application.</p>
+<pre class="code prettyprint"><code>   let isLeafRouteName = this.get('pathInspectorService').isLeafRouteName(this.get('routeName')); // true / false</code></pre>
+
     </div>
 
         <div class="params">
@@ -301,7 +329,8 @@
 
 
                     <div class="param-description">
-                         
+                        <p>An application route name to inspect and determine whether or not it is a leaf route.</p>
+
                     </div>
 
                 </li>
@@ -313,12 +342,14 @@
 
             <div class="returns-description">
                         <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    <p>Whether or not the route name is that of an application leaf route</p>
+
             </div>
         </div>
 
 
 </div>
-<div id="method_nodeForRouteName" class="method item">
+<div id="method_nodeForRouteName" class="method item public">
     <h3 class="name"><code>nodeForRouteName</code></h3>
 
         <div class="args">
@@ -334,6 +365,7 @@
         </span>
 
 
+        <span class="flag public">public</span>
 
 
 
@@ -342,7 +374,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l119"><code>addon&#x2F;services&#x2F;path-inspector.js:119</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l253"><code>addon&#x2F;services&#x2F;path-inspector.js:253</code></a>
         </p>
 
 
@@ -350,7 +382,25 @@
     </div>
 
     <div class="description">
-        
+        <p>Retrieves the parallel route tree node representing the a given route name.</p>
+<pre class="code prettyprint"><code>   let node = this.get('pathInspectorService').nodeForRouteName('application.index');
+
+   // result:
+         {
+           nodeName: 'index',
+           isLeafNode: true,
+           routeName: 'index',
+           children: [],
+           depth: 1,
+           parent: {
+             nodeName: 'application',
+             isLeafNode: false,
+             routeName: 'application',
+             depth: 0,
+             children: [] // this would contain the same outer node we are dealing with
+           }
+         }</code></pre>
+
     </div>
 
         <div class="params">
@@ -363,7 +413,8 @@
 
 
                     <div class="param-description">
-                         
+                        <p>An application route name to fetch a parallel tree node for</p>
+
                     </div>
 
                 </li>
@@ -375,12 +426,14 @@
 
             <div class="returns-description">
                         <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    <p>The parallel tree node for a given route name</p>
+
             </div>
         </div>
 
 
 </div>
-<div id="method_siblingNodesForRouteName" class="method item">
+<div id="method_siblingNodesForRouteName" class="method item public">
     <h3 class="name"><code>siblingNodesForRouteName</code></h3>
 
         <div class="args">
@@ -396,6 +449,7 @@
         </span>
 
 
+        <span class="flag public">public</span>
 
 
 
@@ -404,7 +458,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l106"><code>addon&#x2F;services&#x2F;path-inspector.js:106</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l220"><code>addon&#x2F;services&#x2F;path-inspector.js:220</code></a>
         </p>
 
 
@@ -412,7 +466,24 @@
     </div>
 
     <div class="description">
-        
+        <p>Retrieves the parallel route tree nodes representing the siblings for a given route name</p>
+<pre class="code prettyprint"><code>   // Assuming the following routes: application, application.index, application.foo
+   let siblingNodes = this.get('pathInspectorService').siblingNodesForRouteName('application.index');
+
+   // result:
+         [
+           {
+             nodeName: 'foo',
+             isLeafNode: true,
+             routeName: 'foo',
+             children: [],
+             depth: 1,
+             parent: {
+               nodeName: 'application'
+             }
+           }
+         ]</code></pre>
+
     </div>
 
         <div class="params">
@@ -425,7 +496,8 @@
 
 
                     <div class="param-description">
-                         
+                        <p>A route name to fetch the sibling parallel tree nodes for</p>
+
                     </div>
 
                 </li>
@@ -437,12 +509,14 @@
 
             <div class="returns-description">
                         <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">[Object]</a></span>:
+                    <p>A list of parallel tree nodes representing the siblings for a given route name</p>
+
             </div>
         </div>
 
 
 </div>
-<div id="method_siblingPathsForRouteName" class="method item">
+<div id="method_siblingPathsForRouteName" class="method item public">
     <h3 class="name"><code>siblingPathsForRouteName</code></h3>
 
         <div class="args">
@@ -458,6 +532,7 @@
         </span>
 
 
+        <span class="flag public">public</span>
 
 
 
@@ -466,7 +541,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l97"><code>addon&#x2F;services&#x2F;path-inspector.js:97</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l205"><code>addon&#x2F;services&#x2F;path-inspector.js:205</code></a>
         </p>
 
 
@@ -474,7 +549,10 @@
     </div>
 
     <div class="description">
-        
+        <p>Retrieves the route names for the siblings of a given route name</p>
+<pre class="code prettyprint"><code>   // Assuming the following routes: application, application.index, application.foo
+   let siblingPaths = this.get('pathInspectorService').siblingPathsForRouteName('application.index'); // ['foo']</code></pre>
+
     </div>
 
         <div class="params">
@@ -487,7 +565,8 @@
 
 
                     <div class="param-description">
-                         
+                        <p>A route name to fetch the sibling route names for</p>
+
                     </div>
 
                 </li>
@@ -499,6 +578,8 @@
 
             <div class="returns-description">
                         <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">[String]</a></span>:
+                    <p>A list of found sibling route names</p>
+
             </div>
         </div>
 
@@ -509,97 +590,128 @@
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
-<div id="property_leafRouteMap" class="property item">
+<div id="property_leafRouteMap" class="property item public">
     <h3 class="name"><code>leafRouteMap</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
+        <span class="flag public">public</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l71"><code>addon&#x2F;services&#x2F;path-inspector.js:71</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l78"><code>addon&#x2F;services&#x2F;path-inspector.js:78</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        
+        <p>A hash where route names make up the keys, which are paired with either a true or false boolean value indicating
+whether or not the keyed route name is that of a leaf route</p>
+<pre class="code prettyprint"><code>   // Assuming a boilerplate application with only an index route
+   let leafRouteMap = this.get('pathInspectorService.leafRouteMap'); // {application: false, 'application.index': true}</code></pre>
+
     </div>
 
 
 
 </div>
-<div id="property_leafRouteNames" class="property item">
+<div id="property_leafRouteNames" class="property item public">
     <h3 class="name"><code>leafRouteNames</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">[String]</a></span>
 
 
+        <span class="flag public">public</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l62"><code>addon&#x2F;services&#x2F;path-inspector.js:62</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l63"><code>addon&#x2F;services&#x2F;path-inspector.js:63</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        
+        <p>A list of all leaf route names in the application</p>
+<pre class="code prettyprint"><code>   // Assuming a boilerplate application with only an index route.
+   let leafRouteNames = this.get('pathInspectorService.leafRouteNames'); // ['index']</code></pre>
+
     </div>
 
 
 
 </div>
-<div id="property_routeMapTree" class="property item">
+<div id="property_routeMapTree" class="property item public">
     <h3 class="name"><code>routeMapTree</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
+        <span class="flag public">public</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l138"><code>addon&#x2F;services&#x2F;path-inspector.js:138</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l111"><code>addon&#x2F;services&#x2F;path-inspector.js:111</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        
+        <p>A parallel tree of nodes to that of the applications route map/tree.</p>
+<pre class="code prettyprint"><code>   // Assuming the following routes: application, application.index
+   let routeMapTree = this.get('pathInspectorService.routeMapTree');
+
+   // result:
+         {
+           nodeName: 'application',
+           routeName: 'application',
+           isLeafNode: false,
+           depth: 0,
+           children: [
+             nodeName: 'index',
+             routeName: 'index',
+             children: [],
+             depth: 1,
+             parent: {} // the same outer node we are dealing with
+           ]
+         }</code></pre>
+
     </div>
 
 
 
 </div>
-<div id="property_routes" class="property item">
+<div id="property_routes" class="property item public">
     <h3 class="name"><code>routes</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">[String]</a></span>
 
 
+        <span class="flag public">public</span>
 
 
 
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/addon_services_path-inspector.js.html#l28"><code>addon&#x2F;services&#x2F;path-inspector.js:28</code></a>
+        <a href="../files/addon_services_path-inspector.js.html#l46"><code>addon&#x2F;services&#x2F;path-inspector.js:46</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        
+        <p>A list of all route paths in the application</p>
+<pre class="code prettyprint"><code>   let routeNames = this.get('pathInspectorService.routes'); // ex. ['index', 'foo.bar', 'baz.qux']</code></pre>
+
     </div>
 
 
