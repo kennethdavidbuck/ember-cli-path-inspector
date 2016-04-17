@@ -31,7 +31,7 @@ Each node in the parallel tree has 6 properties:
 - nodeName: Given a path to a leaf node, this is the segment representing the current node.
 - routeName: What you would expect, the path leading to the the route.
 - children: A list of immediate child route names for the current node.
-- level: The row level of the node in the route tree
+- depth: The row level of the node in the route tree (0 indexed)
 - isLeafNode: Whether or not the node represents a leaf node in the parallel tree
 
 ### Determining Leaf Routes
