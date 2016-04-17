@@ -1,0 +1,209 @@
+{
+    "project": {
+        "name": "ember-cli-path-inspector",
+        "description": "Route path introspection for your application.",
+        "version": "0.1.1.cbe27efc"
+    },
+    "files": {
+        "addon/services/path-inspector.js": {
+            "name": "addon/services/path-inspector.js",
+            "modules": {},
+            "classes": {
+                "EmberCliRoutePathInspector.Services.PathInspector": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "EmberCliRoutePathInspector.Services.PathInspector": {
+            "name": "EmberCliRoutePathInspector.Services.PathInspector",
+            "shortname": "EmberCliRoutePathInspector.Services.PathInspector",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "addon/services/path-inspector.js",
+            "line": 1,
+            "description": "Provides additional non-invasive route tree introspection using a parallel tree of nodes\n\n       // Example Node:\n       {\n         nodeName: 'index',\n         isLeafNode: true,\n         routeName: 'index',\n         children: [],\n         depth: 1,\n         parent: {\n           nodeName: 'application',\n           isLeafNode: false,\n           routeName: 'application',\n           depth: 0,\n           children: [] // this would contain the same outer node we are dealing with\n         }\n       }",
+            "is_constructor": 1,
+            "extends": "Ember.Service"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 46,
+            "description": "A list of all route paths in the application\n\n       let routeNames = this.get('pathInspectorService.routes'); // ex. ['index', 'foo.bar', 'baz.qux']",
+            "itemtype": "property",
+            "name": "routes",
+            "type": "[String]",
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 63,
+            "description": "A list of all leaf route names in the application\n\n       // Assuming a boilerplate application with only an index route.\n       let leafRouteNames = this.get('pathInspectorService.leafRouteNames'); // ['index']",
+            "itemtype": "property",
+            "name": "leafRouteNames",
+            "type": "[String]",
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 78,
+            "description": "A hash where route names make up the keys, which are paired with either a true or false boolean value indicating\nwhether or not the keyed route name is that of a leaf route\n\n       // Assuming a boilerplate application with only an index route\n       let leafRouteMap = this.get('pathInspectorService.leafRouteMap'); // {application: false, 'application.index': true}",
+            "itemtype": "property",
+            "name": "leafRouteMap",
+            "type": "Object",
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 111,
+            "description": "A parallel tree of nodes to that of the applications route map/tree.\n\n       // Assuming the following routes: application, application.index\n       let routeMapTree = this.get('pathInspectorService.routeMapTree');\n\n       // result:\n             {\n               nodeName: 'application',\n               routeName: 'application',\n               isLeafNode: false,\n               depth: 0,\n               children: [\n                 nodeName: 'index',\n                 routeName: 'index',\n                 children: [],\n                 depth: 1,\n                 parent: {} // the same outer node we are dealing with\n               ]\n             }",
+            "itemtype": "property",
+            "name": "routeMapTree",
+            "type": "Object",
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 173,
+            "description": "Determines whether or not a given route is a leaf route within the application\n\n      let isLeafRoute = this.get('pathInspectorService').isLeafRoute(this); // true / false",
+            "itemtype": "method",
+            "name": "isLeafRoute",
+            "params": [
+                {
+                    "name": "route",
+                    "description": "An application route to inspect and determine whether or not it is a leaf route",
+                    "type": "Ember.Route"
+                }
+            ],
+            "return": {
+                "description": "Whether or not the route is a leaf route",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 187,
+            "description": "Determines whether or not a given routeName is that of a leaf route within the application.\n\n       let isLeafRouteName = this.get('pathInspectorService').isLeafRouteName(this.get('routeName')); // true / false",
+            "itemtype": "method",
+            "name": "isLeafRouteName",
+            "params": [
+                {
+                    "name": "candidateRouteName",
+                    "description": "An application route name to inspect and determine whether or not it is a leaf route.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Whether or not the route name is that of an application leaf route",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 205,
+            "description": "Retrieves the route names for the siblings of a given route name\n\n       // Assuming the following routes: application, application.index, application.foo\n       let siblingPaths = this.get('pathInspectorService').siblingPathsForRouteName('application.index'); // ['foo']",
+            "itemtype": "method",
+            "name": "siblingPathsForRouteName",
+            "params": [
+                {
+                    "name": "routeName",
+                    "description": "A route name to fetch the sibling route names for",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "A list of found sibling route names",
+                "type": "[String]"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 220,
+            "description": "Retrieves the parallel route tree nodes representing the siblings for a given route name\n\n       // Assuming the following routes: application, application.index, application.foo\n       let siblingNodes = this.get('pathInspectorService').siblingNodesForRouteName('application.index');\n\n       // result:\n             [\n               {\n                 nodeName: 'foo',\n                 isLeafNode: true,\n                 routeName: 'foo',\n                 children: [],\n                 depth: 1,\n                 parent: {\n                   nodeName: 'application'\n                 }\n               }\n             ]",
+            "itemtype": "method",
+            "name": "siblingNodesForRouteName",
+            "params": [
+                {
+                    "name": "routeName",
+                    "description": "A route name to fetch the sibling parallel tree nodes for",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "A list of parallel tree nodes representing the siblings for a given route name",
+                "type": "[Object]"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        },
+        {
+            "file": "addon/services/path-inspector.js",
+            "line": 253,
+            "description": "Retrieves the parallel route tree node representing the a given route name.\n\n       let node = this.get('pathInspectorService').nodeForRouteName('application.index');\n\n       // result:\n             {\n               nodeName: 'index',\n               isLeafNode: true,\n               routeName: 'index',\n               children: [],\n               depth: 1,\n               parent: {\n                 nodeName: 'application',\n                 isLeafNode: false,\n                 routeName: 'application',\n                 depth: 0,\n                 children: [] // this would contain the same outer node we are dealing with\n               }\n             }",
+            "itemtype": "method",
+            "name": "nodeForRouteName",
+            "params": [
+                {
+                    "name": "routeName",
+                    "description": "An application route name to fetch a parallel tree node for",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The parallel tree node for a given route name",
+                "type": "Object"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EmberCliRoutePathInspector.Services.PathInspector"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:173"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:187"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:205"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:220"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " addon/services/path-inspector.js:253"
+        }
+    ]
+}

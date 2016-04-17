@@ -11,6 +11,9 @@ Path Inspector acquires a list of your applications paths at run time and constr
 
 Does it deal with dynamically generated routes? No, not yet.
 
+**You can view a demo app that uses the inspector [HERE](https://kennethdavidbuck.github.io/ember-cli-path-inspector/), 
+along with the [API DOCS](https://kennethdavidbuck.github.io/ember-cli-path-inspector/docs).**
+
 Is it production ready? While current implementation is being used in production apps the api is subject to change until 1.0.0 is reached
 
 ## Installation
@@ -22,12 +25,14 @@ ember install ember-cli-path-inspector
 
 
 ### The Node Tree
-Each node in the parallel tree has 4 properties:
+Each node in the parallel tree has 6 properties:
 
 - parent: The current nodes parent node
 - nodeName: Given a path to a leaf node, this is the segment representing the current node.
 - routeName: What you would expect, the path leading to the the route.
 - children: A list of immediate child route names for the current node.
+- level: The row level of the node in the route tree
+- isLeafNode: Whether or not the node represents a leaf node in the parallel tree
 
 ### Determining Leaf Routes
 ```javascript

@@ -2,7 +2,7 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('service:path-inspector', 'Unit | Service | path inspector', {
-  setup: function () {
+  beforeEach() {
     this.subject().set('router.router.recognizer.names', {
       'application': {},
       'foo': {},
@@ -13,8 +13,6 @@ moduleFor('service:path-inspector', 'Unit | Service | path inspector', {
       'bar': {},
       'qux': {}
     });
-  },
-  teardown: function () {
   }
 });
 
@@ -45,7 +43,7 @@ test('Correctly lists leaf routes', function (assert) {
 
   assert.equal(actualLeafRoutes.length, expectedLeafRoutes.length, 'expected and actual leaf routes should be the same length');
 
-  expectedLeafRoutes.forEach(function (routeName) {
+  expectedLeafRoutes.forEach(routeName => {
     assert.ok(actualLeafRoutes.indexOf(routeName) !== -1, `${routeName} should be a part of the result set`);
   });
 });
@@ -76,16 +74,16 @@ test('Correctly identifies sibling route paths', function (assert) {
   const actualFooSiblingPaths = service.siblingPathsForRouteName('foo');
 
   assert.equal(expectedFooSiblingPaths.length, actualFooSiblingPaths.length, 'Should be of the same length');
-  actualFooSiblingPaths.forEach((path) => {
-    assert.ok(expectedFooSiblingPaths.contains(path), `foo sibling paths should contain sibling path: ${path}`);
+  actualFooSiblingPaths.forEach(path => {
+    assert.ok(expectedFooSiblingPaths.indexOf(path) > -1, `foo sibling paths should contain sibling path: ${path}`);
   });
 
   const expectedBarSiblingPaths = Ember.A(['foo', 'qux']);
   const actualBarSiblingPaths = service.siblingPathsForRouteName('bar');
 
   assert.equal(expectedBarSiblingPaths.length, actualBarSiblingPaths.length, 'Should be of the same length');
-  expectedBarSiblingPaths.forEach((path) => {
-    assert.ok(actualBarSiblingPaths.contains(path), `bar sibling paths should contain sibling path: ${path}`);
+  expectedBarSiblingPaths.forEach(path => {
+    assert.ok(actualBarSiblingPaths.indexOf(path) > -1, `bar sibling paths should contain sibling path: ${path}`);
   });
 
   const actualFooBarBazSiblingPaths = service.siblingPathsForRouteName('foo.bar.baz');
@@ -123,7 +121,7 @@ test('Queried route name is not listed in sibling paths', function (assert) {
   const service = this.subject();
   const result = service.siblingNodesForRouteName('bar');
 
-  assert.ok(!result.findBy('routeName', 'bar'), 'bar should not be in its sibling node set');
+  assert.ok(!Ember.A(result).find(node => node.routeName === 'bar'), 'bar should not be in its sibling node set');
 });
 
 test('Correctly identifies sibling nodes for foo', function (assert) {
@@ -133,8 +131,8 @@ test('Correctly identifies sibling nodes for foo', function (assert) {
 
   const result = service.siblingNodesForRouteName('foo');
 
-  expectedPaths.forEach((path) => {
-    assert.ok(result.findBy('routeName', path), `foo siblings should contain node for path: ${path}`);
+  expectedPaths.forEach(path => {
+    assert.ok(Ember.A(result).find(node => node.routeName === path), `foo siblings should contain node for path: ${path}`);
   });
 });
 
@@ -146,8 +144,8 @@ test('Correctly identifies sibling nodes for bar', function (assert) {
 
   const result = service.siblingNodesForRouteName('bar');
 
-  expectedPaths.forEach((path) => {
-    assert.ok(result.findBy('routeName', path), `Should contain node for path: ${path}`);
+  expectedPaths.forEach(path => {
+    assert.ok(Ember.A(result).find(node => node.routeName === path), `Should contain node for path: ${path}`);
   });
 });
 
@@ -156,4 +154,40 @@ test('Application siblings paths are of length zero', function (assert) {
   const service = this.subject();
 
   assert.equal(service.siblingPathsForRouteName('application').length, 0, 'application should have no sibling paths');
+});
+
+test('tags nodes with correct depth', function (assert) {
+  assert.expect(6);
+
+  let routeTree = this.subject().get('routeMapTree');
+
+  assert.equal(routeTree.depth, 0, 'root should have depth zero');
+
+  routeTree.children.forEach(node => {
+    assert.equal(node.depth, 1, 'second level nodes should have depth 1');
+
+    node.children.forEach(node => {
+      assert.equal(node.depth, 2, 'third level nodes should have depth 2');
+    });
+  });
+});
+
+test('correctly tags routeMapTree leaf nodes', function (assert) {
+  assert.expect(8);
+
+  let routeTree = this.subject().get('routeMapTree');
+
+  assert.strictEqual(routeTree.isLeafNode, false, 'root should not be a leaf node');
+
+  routeTree.children.forEach(node => {
+    assert.strictEqual(node.isLeafNode, node.nodeName === 'qux' , '');
+
+    node.children.forEach(node => {
+      assert.strictEqual(node.isLeafNode, false, '');
+
+      node.children.forEach(node => {
+        assert.strictEqual(node.isLeafNode, true, '');
+      });
+    });
+  });
 });
