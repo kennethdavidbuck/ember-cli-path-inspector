@@ -11,7 +11,7 @@ Path Inspector acquires a list of your applications paths at run time and constr
 
 Does it deal with dynamically generated routes? No, not yet.
 
-**You can view a demo app that uses the inspector [HERE](https://kennethdavidbuck.github.io/ember-cli-path-inspector), 
+**You can view a demo app that uses the inspector [HERE](https://kennethdavidbuck.github.io/ember-cli-path-inspector/), 
 along with the [API DOCS](https://kennethdavidbuck.github.io/ember-cli-path-inspector/docs/).**
 
 Is it production ready? While current implementation is being used in production apps the api is subject to change until 1.0.0 is reached
